@@ -41,7 +41,7 @@
     "webpack:watch": "webpack --progress --colors --watch",
     "backend": "node keystone.js",
     "start": "npm run webpack:build; npm run less:build; npm run backend",
-    "dev": "npm run backend & wepback:watch & npm run less:watch"
+    "dev": "npm run backend & npm run wepback:watch & npm run less:watch"
   },
   "main": "keystone.js"
 }

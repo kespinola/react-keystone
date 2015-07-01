@@ -15,7 +15,7 @@ keystone.init({
 
 	'name': 'Chyla Walsh Yoga',
 	'brand': 'Chyla Walsh Yoga',
-	
+
 	'favicon': 'public/favicon.ico',
 	'emails': 'templates/emails',
 	'auto update': true,
@@ -104,7 +104,7 @@ keystone.start({
 		app.set('view', renderer.expressView);
 		app.use(express.static('public'));
 
-		app.get('/', function(req,res){
+		app.get('*', function(req,res){
 			res.render(req.url);
 		});
 
