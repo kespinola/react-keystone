@@ -9,7 +9,6 @@ var options = {
 	
   routes: Routes,
   viewResolver: function(viewName) {
-		console.log(`./views/${viewName}`);
     return require(`./views/${viewName}`);
   }
 };

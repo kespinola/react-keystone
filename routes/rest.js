@@ -2,7 +2,7 @@ var keystone = require('keystone');
 var _ = require('lodash');
 
 var restful = require("restful-keystone")(keystone, {
-	root: "/api/v1"
+	root: process.env.API_BASE || "/api/"
 });
 
 var models = Object.keys(keystone.mongoose.models);

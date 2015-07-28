@@ -22,6 +22,7 @@
     "react-router": "^0.13.3",
     "react-tap-event-plugin": "^0.1.7",
     "restful-keystone": "^0.3.0",
+    "superagent": "^1.2.0",
     "underscore": "^1.8.0",
     "underscore.string": "^3.1.1",
     "webpack": "^1.10.0",
