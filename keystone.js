@@ -1,7 +1,6 @@
 // Simulate config options from your production environment by
 // customising the .env file in your project's root folder.
 require('dotenv').load();
-require('node-jsx').install({harmony:true, extension:".jsx"});
 
 // Require keystone
 var keystone = require('keystone');
@@ -13,8 +12,8 @@ var path = require('path');
 
 keystone.init({
 
-	'name': 'Chyla Walsh Yoga',
-	'brand': 'Chyla Walsh Yoga',
+	'name': 'react-keystone',
+	'brand': 'Website starter with React and keystone.',
 
 	'favicon': 'public/favicon.ico',
 	'emails': 'templates/emails',
@@ -22,7 +21,7 @@ keystone.init({
 	'session': true,
 	'auth': true,
 	'user model': 'User',
-	'cookie secret': 'cThE1sTk)W8uX:?e#vb?1"Sevb`0MT/.>V;nM:DR/`.>xxga=SaaB*D/aeZW0By7'
+	'cookie secret': 'cThE1sTk)W8uX:?e#gb?1"Sevb`0MT/.>V;nM:DR/`.>xxga=SaaB*D/aeZW0By7'
 
 });
 
