@@ -1,9 +1,10 @@
 var React = require('react');
+var flux = require('../flux');
 
 var Blog = React.createClass({
 	render(){
 		return (
-			<h1>Hello from Blog. And dasdasa some more dsfsd fsf sdf s.</h1>
+				<h1>Hello from Blog.</h1>
 		)
 	}
 });

@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "alt": "^0.17.1",
     "async": "^0.9.0",
     "babel": "^5.8.12",
     "dotenv": "^1.1.0",
@@ -29,12 +30,11 @@
     "webpack-dev-server": "^1.10.1"
   },
   "devDependencies": {
-    "gulp": "^3.7.0",
-    "gulp-jshint": "^1.9.0",
-    "gulp-watch": "^0.6.5",
     "jshint-stylish": "^0.1.3",
     "less": "^2.5.1",
     "nodemon": "^1.4.0",
+    "npm-run-all": "^1.2.6",
+    "parallelshell": "^2.0.0",
     "watch-less": "0.0.4",
     "webpack-dev-server": "^1.10.1"
   },
@@ -43,14 +43,14 @@
     "npm": ">=1.3.14"
   },
   "scripts": {
-    "less:build": "lessc public/styles/main.less > public/build/main.css",
-    "less:watch": "watch-less --compress public/styles/main.less --output public/build --directory public/styles/ --extension .css",
-    "webpack:build": "webpack --progress --colors",
-    "webpack:watch": "webpack --progress --colors --watch",
+    "styles:build": "lessc public/styles/main.less > public/build/main.css",
+    "styles:watch": "watch-less --compress public/styles/main.less --output public/build --directory public/styles/ --extension .css",
+    "webpack:build": "webpack --progress --colors -p",
+    "webpack:watch": "webpack --progress --colors -d --watch",
     "backend:start": "babel-node keystone.js",
-    "backend:watch": "nodemon --debug --exec babel-node -- keystone.js",
-    "start": "npm run webpack:build; npm run less:build; npm run backend:start",
-    "dev": "npm run backend:watch & npm run wepback:watch & npm run less:watch"
+    "backend:watch": "nodemon --watch --debug --exec babel-node -- keystone.js",
+    "start": "npm run webpack:build; npm run styles:build; npm run backend:start",
+    "dev": "parallelshell 'npm run webpack:watch' 'npm run backend:watch' 'npm run styles:watch'" 
   },
   "main": "keystone.js"
 }

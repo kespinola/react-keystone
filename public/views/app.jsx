@@ -1,7 +1,11 @@
 var React = require('react');
-var Router, {Link, RouteHandler} = require('react-router');
+var Router = require('react-router');
+var RouteHandler = Router.RouteHandler;
+var Link = Router.Link;
 var Layout = require('./_layout/base');
 var {LeftNav} = require('material-ui');
+var withAltContext = require('alt/utils/withAltContext');
+var flux = require('../flux');
 
 var App = React.createClass({
 	getDefaultProps(){
@@ -30,7 +34,11 @@ var App = React.createClass({
 				<RouteHandler {... this.props}/>
 			</Layout>
 		)
-	}
+	},
+	
+	componentDidMount(){
+		console.log(this.context);
+	},
 });
 
-module.exports = App;
+module.exports = withAltContext(flux)(App);

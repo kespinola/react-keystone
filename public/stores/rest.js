@@ -1,30 +1,37 @@
-import RestActions from '../actions/rest';
-import _ from 'lodash';
+var RestActions = require('../actions/rest');
+var _ = require('lodash');
 
 class RestStore {
 	
 	constructor(config = {}){
+		
 		this.bindActions(RestActions);
 		
-		if(!config.model) throw Errow("The store needs a model passed in through the config.");
-		
-		this.model = config.model;
+		this.loading = true;
+		this.data = [];
+	}
+	
+	getCollection(){
+		return _.cloneDeep(this.state.data);
 	}
 	
 	onList(payload){
-		this.setState({[this.model]:payload});
+		this.data = payload;
+		this.loading = false;
 	}
 	
-	onCreate(){}
+	onCreate(payload){
+		console.log(payload)
+	}
 	
-	onGrab(){}
+	onGrab(payload){
+		console.log(payload)
+	}
 
-	onEdit(){}
+	onEdit(payload){}
 	
-	onDelete(){}
-	
-	getCollection(){
-		return this.getState()[this.model]
+	onDelete(payload){
+		console.log(payload)
 	}
 	
 	static find(){
@@ -37,4 +44,4 @@ class RestStore {
 	
 }
 
-export default RestStore;
+module.exports = RestStore;

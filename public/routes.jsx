@@ -1,14 +1,12 @@
 var React = require('react');
-var Router = require('react-router');
-var Route = Router.Route;
-var DefaultRoute = Router.DefaultRoute;
+var Router, {Route, Redirect, DefaultRoute} = require('react-router');
 var App = require('./views/app');
 var Home = require('./views/home');
 var Blog = require('./views/blog');
 
 module.exports = (
-  <Route path='/' handler={App}>
-    <Route path='blog' name='blog' handler={Blog}/>
-    <DefaultRoute name='home' handler={Home}/>
+  <Route path='/' name='App' handler={App}>
+    <Route name='blog' handler={Blog}/>
+		<DefaultRoute name='home'/>
   </Route>
 );

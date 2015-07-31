@@ -1,20 +1,17 @@
-import request from 'superagent';
-var {API_BASE} = require('./constants');
+var request = require('superagent');
+var {API_BASE} = require('../constants.json');
 
 class RestActions{
 	constructor(config = {}){
-		this.base_url = (config.base_url || "/api/");
+		this.base_url = API_BASE;
 		
-		if(!config.model) throw Error("A model key must be specified");
-		this.model = config.model.toLowerCase();
+		console.log(this,config);
 		
-		this.url = `${this.base_url}/${this.model}/list`;
 	}
 	
 	list(){
-		const data = this.getState()[this.model];
 			request
-				.get(`${this.url}/list`)
+				.get(`${this.url}s`)
 				.then((res)=>{
 					this.dispatch(res);
 				});
@@ -28,8 +25,31 @@ class RestActions{
 			})
 	}
 	
-	edit(obj){}
+	grab(id){
+		request
+			.get(`${this.url}/${id}`)
+			.then((res)=>{
+				this.dispatch(res)
+			})
+	}
 	
-	remove(id){}
+	edit(obj){
+		request
+			.post(`${this.url}`)
+			.send(obj)
+			.then((res)=>{
+				this.dispatch(res);
+			})
+	}
+	
+	remove(id){
+		request
+			.post(`${this.url}/delete/${id}`)
+			.then((res)=>{
+				this.dispatch(res);
+			})
+	}
 	
 }
+
+module.exports = RestActions;

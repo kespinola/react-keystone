@@ -8,11 +8,13 @@ class Flux extends Alt{
 		const models = config.models || [];
 		
 		models.forEach((model)=>{
-			this.addStore(`${model}Store`, RestStore, true);
+			this.addStore(`${model}Store`, RestStore, {model});
 		})
 	}
 }
 
-module.exports = new Flux({
-	models:['Cateogry','Comment','Post','User']
+var flux = new Flux({
+	models:['Topic','Comment','Post','User']
 });
+
+module.exports = flux;
