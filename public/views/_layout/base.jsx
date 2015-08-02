@@ -1,15 +1,16 @@
-var React = require('react');
+import React from 'react';
 
-var Layout = React.createClass({
+const Layout = React.createClass({
+  
 	render(){
 		return(
 			<html>
 			<head>
 				<meta charSet='utf-8' />
 				<title>{this.props.title}</title>
-				<link rel='stylesheets' type='text/css' href='/build/main.css'></link>
+				<link rel='stylesheet' type='text/css' href='/build/main.css'></link>
 			</head>
-			<body>
+			<body className='sidebar-layout'>
 			{this.props.children}
 			</body>
 			<script src='/build/bundle.js'></script>
@@ -18,4 +19,4 @@ var Layout = React.createClass({
 	}
 });
 
-module.exports = Layout;
+export default Layout;

@@ -1,12 +1,14 @@
-var React = require('react');
-var flux = require('../flux');
+import React from 'react';
+import Container from 'react-container';
 
-var Blog = React.createClass({
+const Blog = React.createClass({
 	render(){
 		return (
-				<h1>Hello from Blog.</h1>
+      <Container direction='column'>
+        <h1>Hello  fdfa ffrom Bdsfds fds fsdflog.</h1>
+      </Container>
 		)
-	}
+	},
 });
 
-module.exports = Blog;
+export default Blog;

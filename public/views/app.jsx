@@ -1,13 +1,31 @@
-var React = require('react');
-var Router = require('react-router');
-var RouteHandler = Router.RouteHandler;
-var Link = Router.Link;
-var Layout = require('./_layout/base');
-var {LeftNav} = require('material-ui');
-var withAltContext = require('alt/utils/withAltContext');
-var flux = require('../flux');
+import React from 'react';
+import {Link, RouteHandler, Navigation} from 'react-router';
+import Layout from './_layout/base';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import mui, {LeftNav} from 'material-ui';
+import Container from 'react-container';
+import flux from '../flux';
+import AltContainer from 'alt/AltContainer';
+import withAltContext from 'alt/utils/withAltContext';
 
-var App = React.createClass({
+let ThemeManager = new mui.Styles.ThemeManager();
+
+injectTapEventPlugin();
+
+const App = React.createClass({
+  
+  mixins:[Navigation],
+  
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+  
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
+  },
+  
 	getDefaultProps(){
 		return {
 			nav: [
@@ -22,24 +40,22 @@ var App = React.createClass({
 			} = this.props;
 		return(
 			<Layout {... this.props}>
-				<ul>
-					{nav.map((item)=>{
-						const{
-							route,
-							text,
-							} = item;
-            console.log(route,text);
-						return <li key={route}><Link to={route}>{text}</Link></li>
-					})}
-				</ul>
-				<RouteHandler {... this.props}/>
+				<LeftNav ref="nav" menuItems={nav} onChange={this._onMenuItemClick} />
+        <Container fill={true} grow={true} align='center'>
+          <RouteHandler {... this.props}/>
+        </Container>
 			</Layout>
 		)
 	},
-	
-	componentDidMount(){
-		console.log(this.context);
-	},
+  
+  componentWillMount(){
+    ThemeManager.setTheme(ThemeManager.types.DARK);
+  },
+  
+  _onMenuItemClick(e,index,item){
+    this.transitionTo(item.route);
+  },
+  
 });
 
-module.exports = withAltContext(flux)(App);
+export default withAltContext(flux)(App);
