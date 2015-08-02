@@ -5,7 +5,7 @@ const Blog = React.createClass({
 	render(){
 		return (
       <Container direction='column'>
-        <h1>Hello  fdfa ffrom Bdsfds fds fsdflog.</h1>
+        <h1>Blog</h1>
       </Container>
 		)
 	},

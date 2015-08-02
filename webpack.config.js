@@ -35,5 +35,5 @@ module.exports = {
       browser: "google chrome",
       files:["public/build/*"],
     })
-  ]
+  ],
 };

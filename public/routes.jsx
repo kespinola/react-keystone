@@ -8,5 +8,6 @@ module.exports = (
   <Route handler={App}>
     <Route name='home' handler={Home}/>
     <Route name='blog' handler={Blog}/>
+    <DefaultRoute handler={Home}/>
   </Route>
 );
