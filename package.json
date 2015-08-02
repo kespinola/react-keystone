@@ -49,7 +49,7 @@
     "webpack:build": "webpack --progress --colors -p",
     "webpack:watch": "webpack --progress --colors -d --watch",
     "backend:start": "babel-node keystone.js",
-    "backend:watch": "nodemon --exec babel-node keystone.js",
+    "backend:watch": "nodemon --watch public/routes.jsx --watch routes --watch models --watch keystone.js --exec babel-node keystone.js",
     "start": "npm run webpack:build; npm run styles:build; npm run backend:start",
     "dev": "parallelshell 'npm run webpack:watch' 'npm run backend:watch' 'npm run styles:watch'"
   },
