@@ -11,7 +11,7 @@ var App = React.createClass({
 	getDefaultProps(){
 		return {
 			nav: [
-				{route: 'home', text: 'Home'},
+				{route:'home', text: 'Home'},
 				{route: 'blog', text: 'Blog'}
 			]
 		}
@@ -22,6 +22,16 @@ var App = React.createClass({
 			} = this.props;
 		return(
 			<Layout {... this.props}>
+				<ul>
+					{nav.map((item)=>{
+						const{
+							route,
+							text,
+							} = item;
+            console.log(route,text);
+						return <li key={route}><Link to={route}>{text}</Link></li>
+					})}
+				</ul>
 				<RouteHandler {... this.props}/>
 			</Layout>
 		)

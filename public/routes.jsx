@@ -6,6 +6,8 @@ var Blog = require('./views/blog.jsx');
 
 module.exports = (
   <Route handler={App}>
-		<DefaultRoute handler={Home}/>
+    <Route name='home' handler={Home}/>
+    <Route name='blog' hanlder={Blog}/>
+		<DefaultRoute handler={Home} />
   </Route>
 );
