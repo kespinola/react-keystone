@@ -12,12 +12,12 @@
     "json-loader": "^0.5.2",
     "jsx-loader": "^0.13.2",
     "keystone": "^0.3.11",
+    "keystone-utils": "^0.3.0",
     "lodash": "^3.10.0",
     "material-ui": "^0.10.0",
     "materialize-css": "^0.96.1",
     "node-jsx": "^0.13.3",
     "node-libs-browser": "^0.5.2",
-    "nodemon": "^1.3.7",
     "react": "^0.13.3",
     "react-engine": "^1.7.0",
     "react-router": "^0.13.3",
@@ -26,6 +26,7 @@
     "superagent": "^1.2.0",
     "underscore": "^1.8.0",
     "underscore.string": "^3.1.1",
+    "update-notifier": "^0.5.0",
     "webpack": "^1.10.0",
     "webpack-dev-server": "^1.10.1"
   },
@@ -48,9 +49,9 @@
     "webpack:build": "webpack --progress --colors -p",
     "webpack:watch": "webpack --progress --colors -d --watch",
     "backend:start": "babel-node keystone.js",
-    "backend:watch": "nodemon --watch --debug --exec babel-node -- keystone.js",
+    "backend:watch": "nodemon --exec babel-node keystone.js",
     "start": "npm run webpack:build; npm run styles:build; npm run backend:start",
-    "dev": "parallelshell 'npm run webpack:watch' 'npm run backend:watch' 'npm run styles:watch'" 
+    "dev": "parallelshell 'npm run webpack:watch' 'npm run backend:watch' 'npm run styles:watch'"
   },
   "main": "keystone.js"
 }
