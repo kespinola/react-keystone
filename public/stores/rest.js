@@ -1,20 +1,17 @@
-var RestActions = require('../actions/rest');
-var _ = require('lodash');
+import RestActions from '../actions/rest';
+import _ from 'lodash';
 
 class RestStore {
 	
-	constructor(config = {}){
-		
-		this.bindActions(RestActions);
-		
+	constructor(model){
+    
 		this.loading = true;
 		this.data = [];
+    
+    this.alt.getActions('restActions').load()
+    
 	}
-	
-	getCollection(){
-		return _.cloneDeep(this.state.data);
-	}
-	
+  
 	onList(payload){
 		this.data = payload;
 		this.loading = false;
@@ -34,12 +31,13 @@ class RestStore {
 		console.log(payload)
 	}
 	
-	static find(){
-		return this.getCollection();
+	static find(filter = {}){
+    const collection = _.cloneDeep(this.state.data);
+    return _.filter(collection, filter);
 	}
 	
 	static findOne(id){
-		return _.findOne(this.getCollection(),{id});
+		return _.find(_.cloneDeep(this.state.data),{id});
 	}
 	
 }

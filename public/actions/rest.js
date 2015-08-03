@@ -2,50 +2,49 @@ var request = require('superagent');
 var {API_BASE} = require('../constants.json');
 
 class RestActions{
-	constructor(config = {}){
-		this.base_url = API_BASE;
-		
-		console.log(this,config);
-		
-	}
+	constructor(){}
 	
-	list(){
+	list(model, url){
 			request
-				.get(`${this.url}s`)
-				.then((res)=>{
+				.get(`${API_BASE}/${model.toLowerCase()}/${url}s`)
+				.end((res)=>{
+          console.log(this.url,res);
 					this.dispatch(res);
 				});
 	}
 	
-	create(obj){
+	create(model, obj){
 		request
-			.post(`${this.url}/create`)
-			.then((res)=>{
+			.post(`${API_BASE}/${model.toLowerCase()}/create`)
+			.end((res)=>{
 				this.dispatch(res);
 			})
 	}
 	
-	grab(id){
+	grab(model, id){
 		request
-			.get(`${this.url}/${id}`)
-			.then((res)=>{
+			.get(`${API_BASE}/${model.toLowerCase()}/${id}`)
+			.end((res)=>{
 				this.dispatch(res)
 			})
 	}
 	
-	edit(obj){
+	edit(model, obj){
+    const{
+      id
+      } = obj;
 		request
-			.post(`${this.url}`)
+			.post(`${API_BASE}/${model.toLowerCase()}/${id}`)
 			.send(obj)
-			.then((res)=>{
+			.end((res)=>{
 				this.dispatch(res);
 			})
 	}
 	
 	remove(id){
 		request
-			.post(`${this.url}/delete/${id}`)
-			.then((res)=>{
+			.post(`${API_BASE}/${model.toLowerCase()}/delete/${id}`)
+			.end((res)=>{
 				this.dispatch(res);
 			})
 	}

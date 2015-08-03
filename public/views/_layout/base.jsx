@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Layout = React.createClass({
+var Layout = React.createClass({
   
 	render(){
 		return(
