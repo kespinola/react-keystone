@@ -1,45 +1,53 @@
-import RestActions from '../actions/rest';
+import CollectionSource from '../sources/collection';
+import CollectionActions from '../actions/collection';
 import _ from 'lodash';
 
 class RestStore {
 	
-	constructor(model){
-    
+	constructor(){
 		this.loading = true;
 		this.data = [];
     
-    this.alt.getActions('restActions').load()
+    console.log('extending from rest store');
+    
+    this.exportPublicMethods({
+      find: this.find,
+      findOne: this.findOne,
+      getCollection: this.getCollection,
+    });
+    
+    this.bindActions(CollectionActions);
+    this.registerAsync(CollectionSource);
     
 	}
   
-	onList(payload){
+	onListSuccess(payload){
+    debugger;
 		this.data = payload;
 		this.loading = false;
 	}
+  
+  onLoading(payload){
+    this.loading = true;
+  }
+  
+  onError(payload){
+    console.log(payload);
+  }
+  
+  getCollection(){
+    return _.cloneDeep(this.data)
+  }
 	
-	onCreate(payload){
-		console.log(payload)
+	find(filter = {}){
+    console.log(this);
+    return _.filter(this.getCollection(), filter);
 	}
 	
-	onGrab(payload){
-		console.log(payload)
-	}
-
-	onEdit(payload){}
-	
-	onDelete(payload){
-		console.log(payload)
-	}
-	
-	static find(filter = {}){
-    const collection = _.cloneDeep(this.state.data);
-    return _.filter(collection, filter);
-	}
-	
-	static findOne(id){
-		return _.find(_.cloneDeep(this.state.data),{id});
+	findOne(id){
+		return _.find(this.getCollection(),{id});
 	}
 	
 }
 
-module.exports = RestStore;
+export default RestStore;

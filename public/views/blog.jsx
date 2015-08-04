@@ -1,18 +1,34 @@
 import React from 'react';
 import Container from 'react-container';
+import connectToStores from 'alt/utils/connectToStores';
+import PostStore from '../stores/post';
 
 const Blog = React.createClass({
-  contextTypes:{
-    flux:React.PropTypes.object,
+  statics: {
+    getStores(props) {
+      return [PostStore]
+    },
+    getPropsFromStores(props) {
+      return {
+        posts: PostStore.find(),
+      }
+    }
   },
-	render(){
-    console.log(this.context.flux.stores.Post.getState());
-		return (
+  render(){
+    const{
+      posts,
+      } = this.props;
+    return (
       <Container direction='column'>
         <h1>Blog</h1>
+        <h2>There are {posts.length}</h2>
       </Container>
-		)
-	}
+    )
+  },
+  
+  componentDidMount(){
+    console.log(this.props);
+  }
 });
 
-export default Blog;
+export default connectToStores(Blog);

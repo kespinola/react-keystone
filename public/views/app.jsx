@@ -4,9 +4,6 @@ import Layout from './_layout/base';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import mui, {LeftNav} from 'material-ui';
 import Container from 'react-container';
-import flux from '../flux';
-import AltContainer from 'alt/AltContainer';
-import withAltContext from 'alt/utils/withAltContext';
 
 let ThemeManager = new mui.Styles.ThemeManager();
 
@@ -58,4 +55,4 @@ const App = React.createClass({
   
 });
 
-export default withAltContext(flux)(App);
+export default App;
