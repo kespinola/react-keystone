@@ -1,12 +1,12 @@
 #React Keystone
-A isomorphic javascript web app starter and content management system.
+A lightweight isomorphic javascript web app starter and content management system.
 
 ##Features
 - Keystone.js CMS
 - React.js powered view layer
 - Model exposure through REST API
 - Configurable flux architecture using Alt.js
-- Ultra lightweight codebase
+- Extensive configurations
 - Easy deploy with Dokku
 
 ##Requirements
@@ -15,8 +15,11 @@ A isomorphic javascript web app starter and content management system.
 
 ##Developing
 The development mode of the app leverages webpack react hot loading with browser sync support for live style reloads.
-- npm install
-- npm run dev
+- clone repo
+- cd directory 
+- `npm install`
+- Start a local db instance on another shell tab with the command `mongod`
+- cd back. `npm run dev`
 
 ##Deploy
 Under development...
