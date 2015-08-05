@@ -1,15 +1,7 @@
 var request = require('superagent');
 var {API_BASE} = require('../constants.json');
+var alt = require('../alt');
 
-class CollectionActions{
-  
-  constructor(){
-    this.generateActions(
-      'error',
-      'listSuccess'
-    )
-  }
-  
-}
+const CollectionActions = alt.generateActions('findSuccess','error');
 
 module.exports = CollectionActions;

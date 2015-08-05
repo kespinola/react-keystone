@@ -10,7 +10,7 @@ const Blog = React.createClass({
     },
     getPropsFromStores(props) {
       return {
-        posts: PostStore.find(),
+        posts:PostStore.find()
       }
     }
   },
@@ -24,10 +24,6 @@ const Blog = React.createClass({
         <h2>There are {posts.length}</h2>
       </Container>
     )
-  },
-  
-  componentDidMount(){
-    console.log(this.props);
   }
 });
 

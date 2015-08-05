@@ -4,25 +4,19 @@ import _ from 'lodash';
 
 class RestStore {
 	
-	constructor(){
+	constructor(model){
 		this.loading = true;
 		this.data = [];
-    
-    console.log('extending from rest store');
-    
-    this.exportPublicMethods({
-      find: this.find,
-      findOne: this.findOne,
-      getCollection: this.getCollection,
-    });
+    this.model = model;
     
     this.bindActions(CollectionActions);
     this.registerAsync(CollectionSource);
     
+    console.log(this);
 	}
   
-	onListSuccess(payload){
-    debugger;
+	onFindSuccess(payload){
+    console.log('find payload');
 		this.data = payload;
 		this.loading = false;
 	}
@@ -34,19 +28,6 @@ class RestStore {
   onError(payload){
     console.log(payload);
   }
-  
-  getCollection(){
-    return _.cloneDeep(this.data)
-  }
-	
-	find(filter = {}){
-    console.log(this);
-    return _.filter(this.getCollection(), filter);
-	}
-	
-	findOne(id){
-		return _.find(this.getCollection(),{id});
-	}
 	
 }
 
