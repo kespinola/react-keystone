@@ -1,5 +1,5 @@
 #React Keystone
-A lightweight isomorphic javascript web app starter and content management system.
+A lightweight isomorphic javascript web app starter and content management system that utilizes the best of the open source community.
 
 ##Features
 - Keystone.js CMS
