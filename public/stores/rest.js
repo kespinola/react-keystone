@@ -1,29 +1,33 @@
+import _ from 'lodash';
+import immutable from 'alt/utils/ImmutableUtil';
+import Immutable from 'immutable';
 import CollectionSource from '../sources/collection';
 import CollectionActions from '../actions/collection';
-import _ from 'lodash';
 
 class RestStore {
 	
 	constructor(model){
-		this.loading = true;
-		this.data = [];
-    this.model = model;
+    
+    this.state = Immutable.Map({
+      model,
+      data: Immutable.Map({}),
+    });
     
     this.bindActions(CollectionActions);
     this.registerAsync(CollectionSource);
-    
-    console.log(this);
 	}
   
 	onFindSuccess(payload){
-    console.log('find payload');
-		this.data = payload;
-		this.loading = false;
+    
+    let data = _.reduce(payload.data[this.state.get('model')],(memo, obj)=>{
+      memo[obj._id] = obj;
+      return memo;
+    },{});
+    
+    data = Immutable.fromJS(data);
+    console.log(data.merge(this.state.get('data')));
+    this.setState(this.state.set('data', data.merge(this.state.get('data'))));
 	}
-  
-  onLoading(payload){
-    this.loading = true;
-  }
   
   onError(payload){
     console.log(payload);
@@ -31,4 +35,4 @@ class RestStore {
 	
 }
 
-export default RestStore;
+export default immutable(RestStore);
