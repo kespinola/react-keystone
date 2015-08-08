@@ -5,8 +5,7 @@ A lightweight isomorphic javascript web app starter and content management syste
 - Keystone.js CMS
 - React.js powered view layer
 - Model exposure through REST API
-- Configurable flux architecture using Alt.js
-- Extensive configurations
+- flux flow generated from data models
 - Easy deploy with Dokku
 
 ##Requirements

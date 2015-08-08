@@ -23,9 +23,7 @@ class RestStore {
       memo[obj._id] = obj;
       return memo;
     },{});
-    
     data = Immutable.fromJS(data);
-    console.log(data.merge(this.state.get('data')));
     this.setState(this.state.set('data', data.merge(this.state.get('data'))));
 	}
   

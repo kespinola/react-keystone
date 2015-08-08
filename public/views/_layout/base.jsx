@@ -12,7 +12,7 @@ var Layout = React.createClass({
 			</head>
 			<body className='sidebar-layout'>
 			{this.props.children}
-			</body>
+      </body>
 			<script src='/build/bundle.js'></script>
 			</html>
 		)

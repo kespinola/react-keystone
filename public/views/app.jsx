@@ -37,7 +37,7 @@ const App = React.createClass({
 			} = this.props;
 		return(
 			<Layout {... this.props}>
-				<LeftNav ref="nav" menuItems={nav} onChange={this._onMenuItemClick} />
+        <LeftNav ref="nav" menuItems={nav} onChange={this._onMenuItemClick} />
         <Container fill={true} grow={true} align='center'>
           <RouteHandler {... this.props}/>
         </Container>

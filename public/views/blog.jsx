@@ -1,30 +1,31 @@
 import React from 'react';
 import Container from 'react-container';
 import connectToStores from 'alt/utils/connectToStores';
-import PostStore from '../stores/post';
-var axios = require('axios');
-var {API_BASE} = require('../constants.json');
+import Post from '../stores/post';
 
 const Blog = React.createClass({
   statics: {
     getStores(props) {
-      return [PostStore]
+      return [Post]
     },
     getPropsFromStores(props) {
+      Post.find();
       return {
-        postStore:PostStore.getState(),
+        PostState:Post.getState(),
       }
     }
   },
   render(){
     const{
-      postStore,
+      PostState,
       } = this.props;
+    
     return (
       <Container direction='column'>
         <h1>Blog</h1>
+        <section dangerouslySetInnerHTML={{__html: '<p>P tag</p>'}}>more stuff</section>
         <ul>
-          {postStore.get('data').toArray().map((map)=>{
+          {PostState.get('data').toArray().map((map)=>{
             const{
               _id,
               title,
@@ -42,10 +43,6 @@ const Blog = React.createClass({
         </ul>
       </Container>
     )
-  },
-  
-  componentDidMount(){
-    if(this.props.postStore.get('data').count() == 0) PostStore.find();
   }
 });
 

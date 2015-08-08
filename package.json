@@ -34,6 +34,7 @@
     "babel-core": "^5.8.20",
     "babel-loader": "^5.3.2",
     "browser-sync": "^2.8.2",
+    "bs-snippet-injector": "^2.0.1",
     "jshint-stylish": "^0.1.3",
     "less": "^2.5.1",
     "minimist": "^1.1.2",
@@ -53,7 +54,7 @@
     "webpack:build": "webpack --progress --colors -p",
     "webpack:watch": "webpack-dev-server --progress --colors -d --watch --content-base build/ --hot --inline --port 30303",
     "backend:start": "babel-node keystone.js",
-    "backend:watch": "nodemon --ignore public/views --ignore public/fonts --ignore node_modules --ignore public/images --exec babel-node keystone.js",
+    "backend:watch": "nodemon --debug --ignore public/views --ignore public/fonts --ignore node_modules --ignore public/images --exec babel-node keystone.js",
     "start": "npm run webpack:build; npm run styles:build; npm run backend:start",
     "dev": "parallelshell 'npm run webpack:watch' 'npm run backend:watch' 'npm run styles:watch'"
   },
