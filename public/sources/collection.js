@@ -8,9 +8,17 @@ const CollectionSource = {
       return axios.get(`${API_BASE}${state.get('model')}`);
     },
     
+    local(state){
+      return state.get('data');
+    },
     loading: CollectionActions.loading,
     success: CollectionActions.findSuccess, // (required)
     error: CollectionActions.error, // (required)
+
+    shouldFetch(state) {
+      return state.get('data').count() === 0;
+    }
+    
   },
 };
 

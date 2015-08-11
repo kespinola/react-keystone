@@ -20,10 +20,13 @@ Post.add({
     filename: function(item, file){
 			console.log(item ,file);
       return item.id + '.' + file.extension
+    },
+    format: function(item, file){
+      return '<img src="/files/'+file.filename+'" style="max-width: 300px">'
     }
   },
   text: { type: Types.Html, wysiwyg: true, height: 400},
-  topics: { type: Types.Relationship, ref: 'categories', many: true },
+  topics: { type: Types.Relationship, ref: 'topics', many: true },
 });
 
 /**

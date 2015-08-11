@@ -13,8 +13,7 @@ var path = require('path');
 keystone.init({
 
 	'name': 'react-keystone',
-	'brand': 'Website starter with React and keystone.',
-
+	'brand': 'Web App Starter',
 	'favicon': 'public/favicon.ico',
 	'emails': 'templates/emails',
 	'auto update': true,

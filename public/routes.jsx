@@ -1,13 +1,25 @@
-var React = require('react');
-var Router, {Route, Redirect, DefaultRoute} = require('react-router');
-var App = require('./views/app.jsx');
-var Home = require('./views/home.jsx');
-var Blog = require('./views/blog.jsx');
+import React from 'react';
+import Router, {Route, Redirect, DefaultRoute} from 'react-router';
+import App from './views/app';
+import Home from './views/home';
+import constants from './constants.json';
+
+const{
+  AREAS,
+  } = constants;
 
 module.exports = (
   <Route handler={App}>
+    {AREAS.map((area)=>{
+      return (
+        <Route name={`${area}`} handler={require(`./views/${area}/index`)}>
+          <Route name={`${area}.list`} handler={require(`./views/${area}/list`)} />
+          <Route name={`${area}.view`} path=":_id" handler={require(`./views/${area}/view`)} />
+          <DefaultRoute handler={require(`./views/${area}/list`)} />
+        </Route>
+      )
+    })}
     <Route name='home' handler={Home}/>
-    <Route name='blog' handler={Blog}/>
     <DefaultRoute handler={Home}/>
   </Route>
 );

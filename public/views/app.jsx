@@ -1,27 +1,13 @@
 import React from 'react';
 import {Link, RouteHandler, Navigation} from 'react-router';
 import Layout from './_layout/base';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import mui, {LeftNav} from 'material-ui';
+import {Grid, Row, Col, Nav}  from 'react-bootstrap';
+import {NavItemLink} from 'react-router-bootstrap';
 import Container from 'react-container';
-
-let ThemeManager = new mui.Styles.ThemeManager();
-
-injectTapEventPlugin();
 
 const App = React.createClass({
   
   mixins:[Navigation],
-  
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-  
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
   
 	getDefaultProps(){
 		return {
@@ -37,22 +23,26 @@ const App = React.createClass({
 			} = this.props;
 		return(
 			<Layout {... this.props}>
-        <LeftNav ref="nav" menuItems={nav} onChange={this._onMenuItemClick} />
-        <Container fill={true} grow={true} align='center'>
-          <RouteHandler {... this.props}/>
-        </Container>
+        <Grid fluid={true}>
+          <Row>
+            <Col xs={12} sm={3} lg={2}>
+              <Nav bsStyle='pills' stacked activeKey={1} onSelect={this._handleSelect}>
+                {nav.map((item)=>{
+                  const{
+                    route,
+                    } = item;
+                  return <NavItemLink key={route} eventKey={route} to={route}>{item.text}</NavItemLink>
+                })}
+              </Nav>
+            </Col>
+            <Col xs={12} sm={9} lg={10}>
+              <RouteHandler {... this.props}/>
+            </Col>
+          </Row>
+        </Grid>
 			</Layout>
 		)
-	},
-  
-  componentWillMount(){
-    ThemeManager.setTheme(ThemeManager.types.DARK);
-  },
-  
-  _onMenuItemClick(e,index,item){
-    this.transitionTo(item.route);
-  },
-  
+	}
 });
 
 export default App;
