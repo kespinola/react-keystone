@@ -17,8 +17,8 @@ The development mode of the app leverages webpack react hot loading with browser
 - clone repo
 - cd directory 
 - `npm install`
-- Start a local db instance on another shell tab with the command `mongod`
-- cd back. `npm run dev`
+- Start a local db instance by running `mongod`
+- Finally `npm run dev`
 
 ##Deploy
 Under development...
