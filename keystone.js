@@ -24,6 +24,11 @@ keystone.init({
 
 });
 
+keystone.set('s3 config',{
+  bucket:process.env.S3_BUCKET,
+  key:process.env.S3_KEY,
+  secret:process.env.S3_SECRET
+})
 // Load your project's Models
 
 keystone.import('models');
@@ -83,7 +88,8 @@ keystone.set('email tests', require('./routes/emails'));
 
 keystone.set('nav', {
 	'users': 'users',
-	'posts':'posts'
+	'posts':'posts',
+  'assets':'assets'
 });
 
 // Start Keystone to connect to your database and initialise the web server

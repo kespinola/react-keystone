@@ -7,8 +7,6 @@ const List = React.createClass({
     const{
       State,
       } = this.props;
-    
-    console.log(State);
     return (
       <Container>
         <h1>Blog</h1>
@@ -18,8 +16,10 @@ const List = React.createClass({
             title,
             text
             } = item.toJS();
+          
+          console.log(item.toJS());
           return (
-            <article>
+            <article key={_id}>
               <h1><Link to="blog.view" params={{_id}}>{title}</Link></h1>
               <div dangerouslySetInnerHTML={{__html: text}}/>
             </article>
