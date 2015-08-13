@@ -17,7 +17,6 @@ const List = React.createClass({
             text
             } = item.toJS();
           
-          console.log(item.toJS());
           return (
             <article key={_id}>
               <h1><Link to="blog.view" params={{_id}}>{title}</Link></h1>

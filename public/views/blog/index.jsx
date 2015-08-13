@@ -9,7 +9,7 @@ const Blog = React.createClass({
       return [PostStore]
     },
     getPropsFromStores(props) {
-      PostStore.find();
+      PostStore.fetch();
       return {
         PostState: PostStore.getState(),
       }

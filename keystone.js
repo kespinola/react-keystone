@@ -24,11 +24,26 @@ keystone.init({
 
 });
 
-keystone.set('s3 config',{
-  bucket:process.env.S3_BUCKET,
-  key:process.env.S3_KEY,
-  secret:process.env.S3_SECRET
-})
+//Configure s3
+
+if(process.env.S3_BUCKET.length){
+  keystone.set('s3 config',{
+    bucket:process.env.S3_BUCKET,
+    key:process.env.S3_KEY,
+    secret:process.env.S3_SECRET
+  })
+}
+//Configure Cloudinary
+
+
+if(process.env.CLOUDINARY_CLOUD.length){
+  keystone.set('cloudinary config',{
+    cloud_name:process.env.CLOUDINARY_CLOUD,
+    api_key:process.env.CLOUDINARY_KEY,
+    api_secret:process.env.CLOUDINARY_SECRET,
+  })
+}
+
 // Load your project's Models
 
 keystone.import('models');
@@ -89,7 +104,6 @@ keystone.set('email tests', require('./routes/emails'));
 keystone.set('nav', {
 	'users': 'users',
 	'posts':'posts',
-  'assets':'assets'
 });
 
 // Start Keystone to connect to your database and initialise the web server

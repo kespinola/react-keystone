@@ -6,10 +6,19 @@ import CollectionActions from '../actions/collection';
 
 class RestStore {
 	
-	constructor(model){
+	constructor(options){
+    const{
+      resource,
+      } = options;
+    
+    this.waitOn = options.waitOn || [];
+
+    this.waitOn.forEach((store)=>{
+      store.fetch();
+    });
     
     this.state = Immutable.Map({
-      model,
+      resource,
       data: Immutable.Map({}),
     });
     
@@ -17,18 +26,34 @@ class RestStore {
     this.registerAsync(CollectionSource);
 	}
   
-	onFindSuccess(payload){
+	onFetchSuccess(payload){
     
-    let data = _.reduce(payload.data[this.state.get('model')],(memo, obj)=>{
+    this.waitFor(this.waitOn);
+    
+    this.waitOn.forEach((store)=>{
+      console.log(store.getState());
+    });
+    
+    let data = _.reduce(payload.data[this.state.get('resource')],(memo, obj)=>{
       memo[obj._id] = obj;
       return memo;
     },{});
+    
     data = Immutable.fromJS(data);
+    
     this.setState(this.state.set('data', data.merge(this.state.get('data'))));
 	}
   
   onError(payload){
     console.log(payload);
+  }
+  
+  static find(query){
+    this.getState().get('data')
+  }
+  
+  static findOne(query){
+    
   }
 	
 }
