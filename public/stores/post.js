@@ -1,10 +1,11 @@
 import CollectionStore from './collection.js';
 import alt from '../alt';
 import TopicStore from './topic';
+import UserStore from './user';
 
-const options = {
+const config = {
   resource:'posts', 
-  waitOn:[TopicStore]
+  waitOn:[TopicStore, UserStore]
 };
 
-export default alt.createStore(CollectionStore, 'Post', options);
+export default alt.createStore(CollectionStore, 'PostStore', config);

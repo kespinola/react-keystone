@@ -3,15 +3,23 @@ import immutable from 'alt/utils/ImmutableUtil';
 import Immutable from 'immutable';
 import CollectionSource from '../sources/collection';
 import CollectionActions from '../actions/collection';
+import _s from 'underscore.string';
 
-class RestStore {
+function join(ids, map){
+  return ids.map((id)=>{
+    return map.get(id)
+  });
+}
+
+class CollectionStore {
 	
-	constructor(options){
+	constructor(config){
     const{
       resource,
-      } = options;
+      } = config;
     
-    this.waitOn = options.waitOn || [];
+    this.waitOn = config.waitOn || [];
+    this.joins = [];
 
     this.waitOn.forEach((store)=>{
       store.fetch();
@@ -30,17 +38,30 @@ class RestStore {
     
     this.waitFor(this.waitOn);
     
-    this.waitOn.forEach((store)=>{
-      console.log(store.getState());
-    });
-    
     let data = _.reduce(payload.data[this.state.get('resource')],(memo, obj)=>{
+      
+      this.waitOn.forEach((store)=>{
+        const collection = store.getState().get('data');
+        const group = store.getState().get('resource');
+        const single = _s.rtrim(group,"s");
+        
+        if(obj[group]){
+          obj[group] = obj[group].map((id)=>{
+            return collection.get(id);
+          })
+        }else if(obj[single]){
+         obj[single] = collection.get(obj[single]); 
+        }
+        
+      });
+      
       memo[obj._id] = obj;
+      
       return memo;
+      
     },{});
     
     data = Immutable.fromJS(data);
-    
     this.setState(this.state.set('data', data.merge(this.state.get('data'))));
 	}
   
@@ -48,14 +69,6 @@ class RestStore {
     console.log(payload);
   }
   
-  static find(query){
-    this.getState().get('data')
-  }
-  
-  static findOne(query){
-    
-  }
-	
 }
 
-export default immutable(RestStore);
+export default immutable(CollectionStore);

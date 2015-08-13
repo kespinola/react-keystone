@@ -33,8 +33,8 @@ if(process.env.S3_BUCKET.length){
     secret:process.env.S3_SECRET
   })
 }
-//Configure Cloudinary
 
+//Configure Cloudinary
 
 if(process.env.CLOUDINARY_CLOUD.length){
   keystone.set('cloudinary config',{
