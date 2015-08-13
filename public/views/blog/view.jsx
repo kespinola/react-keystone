@@ -13,15 +13,17 @@ const Post = React.createClass({
     const {
       State,
       } = this.props;
+    const item =  State.get("data").get(this.getParams()._id);
+    
+    if(!item) return <h1>Loading Post...</h1>;
+    
     const {
       title,
       text,
-      image,
-      } = State.get("data").get(_id).toJS();
+      } = item.toJS();
     return (
       <Container direction='column' component='article'>
         <h1>{title}</h1>
-        {image ? <img src={`/files/${image.filename}`}/> : null}
         <div dangerouslySetInnerHTML={{__html: text}}/>
         <ButtonLink to="blog.edit" params={{_id}}>Edit Post</ButtonLink>
       </Container>

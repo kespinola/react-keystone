@@ -66,7 +66,7 @@ class CollectionStore {
 	}
   
   onError(payload){
-    console.log(payload);
+    console.log("Error", payload);
   }
   
 }

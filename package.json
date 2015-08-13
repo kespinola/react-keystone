@@ -29,6 +29,7 @@
     "react-engine": "^1.7.0",
     "react-router": "^0.13.3",
     "react-router-bootstrap": "^0.18.1",
+    "react-wysiwyg-editor": "0.0.6",
     "restful-keystone": "^0.3.0",
     "underscore": "^1.8.0",
     "underscore.string": "^3.1.1",

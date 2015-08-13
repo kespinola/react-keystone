@@ -8,7 +8,8 @@ var Layout = React.createClass({
 			<head>
 				<meta charSet='utf-8' />
 				<title>{this.props.title}</title>
-				<link rel='stylesheet' type='text/css' href='/build/main.css'></link>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+				<link rel='stylesheet' type='text/css' href='/build/main.css' />
 			</head>
 			<body>
 			  {this.props.children}

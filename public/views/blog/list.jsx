@@ -28,7 +28,7 @@ const List = React.createClass({
               <div dangerouslySetInnerHTML={{__html: text}}/>
               <ul className="inline-list">
                 {topics.map((topic)=>{
-                  return <li><Label key={topic._id} bsStyle='default'>{topic.name}</Label></li>
+                  return <li key={topic._id}><Label bsStyle='default'>{topic.name}</Label></li>
                 })}
               </ul>
             </article>
