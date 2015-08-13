@@ -8,3 +8,10 @@
 @primary-font:Roboto, sans-serif;
 
 body{background:@body-bg; color:@text-color; font-family:@primary-font;}
+ul{margin:0; padding:0;}
+
+.inline-list{
+	li{list-style:none; display:inline-block; margin:0 20px 10px 0;
+		&:last-child{margin:0 0 10px 0;}
+	}
+}

@@ -19,6 +19,7 @@
     "keystone": "^0.3.11",
     "keystone-utils": "^0.3.0",
     "lodash": "^3.10.0",
+    "moment": "^2.10.6",
     "node-jsx": "^0.13.3",
     "node-libs-browser": "^0.5.2",
     "normalize.css": "^3.0.3",
