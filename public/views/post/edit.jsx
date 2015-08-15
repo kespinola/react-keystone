@@ -7,23 +7,18 @@ import EditableDiv from 'react-wysiwyg-editor';
 import PostStore from '../../stores/post';
 
 const EditPost = React.createClass({
-
-  mixins:[State],
   
   render(){
 
     const {
-      State,
+      data,
       } = this.props;
-    
-    const item =  State.get("data").get(this.getParams()._id);
-    
-    if(!item) return <h1>Loading</h1>;
-    
+
     const {
       title,
       text,
-      } = item.toJS();
+      } = data.toJS();
+
     return (
       <Container direction='column' component='article'>
         <form onSubmit={this._handleSubmit}>

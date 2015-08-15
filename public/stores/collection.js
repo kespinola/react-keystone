@@ -19,7 +19,6 @@ class CollectionStore {
       } = config;
     
     this.waitOn = config.waitOn || [];
-    this.joins = [];
 
     this.waitOn.forEach((store)=>{
       store.fetch();
@@ -65,8 +64,18 @@ class CollectionStore {
     this.setState(this.state.set('data', data.merge(this.state.get('data'))));
 	}
   
-  onError(payload){
-    console.log("Error", payload);
+  onError(response){
+    if (response instanceof Error) {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', response.message);
+    } else {
+      // The request was made, but the server responded with a status code
+      // that falls out of the range of 2xx
+      console.log(response.data);
+      console.log(response.status);
+      console.log(response.headers);
+      console.log(response.config);
+    }
   }
   
 }

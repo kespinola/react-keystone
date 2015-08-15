@@ -22,10 +22,6 @@ Comment.add('Content', {
   content: { type: Types.Html, wysiwyg: true, height: 300 }
 });
 
-
-
-
-
 /**
  Methods
  =======
@@ -56,7 +52,6 @@ Comment.schema.post('save', function() {
   }
 
 });
-
 
 /**
  Registration

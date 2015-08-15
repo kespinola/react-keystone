@@ -1,18 +1,33 @@
 import React from 'react';
 import Container from 'react-container';
+import PostStore from '../../stores/post';
+import connectToStores from 'alt/utils/connectToStores';
 import {Link} from 'react-router';
 import {Label} from 'react-bootstrap';
 import moment from 'moment';
 
+
 const List = React.createClass({
+
+  statics: {
+    getStores(props) {
+      return [PostStore]
+    },
+    getPropsFromStores(props) {
+      return {
+        PostState: PostStore.getState(),
+      }
+    }
+  },
+  
   render(){
     const{
-      State,
+      PostState,
       } = this.props;
     return (
       <Container>
         <h1>Blog</h1>
-        {State.get('data').toArray().map((item)=>{
+        {PostState.get('data').toArray().map((item)=>{
           const{
             _id,
             title,
@@ -36,7 +51,11 @@ const List = React.createClass({
         })}
       </Container>
     )
+  },
+  
+  componentDidMount(){
+    PostState.fetch();
   }
 });
 
-export default List;
+export default connectToStores(List);
