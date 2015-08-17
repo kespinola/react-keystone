@@ -36,7 +36,7 @@ const App = React.createClass({
               </Nav>
             </Col>
             <Col xs={12} sm={9} lg={10}>
-              <RouteHandler _id={this.getParams()._id}/>
+              <RouteHandler/>
             </Col>
           </Row>
         </Grid>

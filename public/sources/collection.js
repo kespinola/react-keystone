@@ -9,18 +9,22 @@ const CollectionSource = {
         _id,
         } = query;
       const scope = _id ? `/${_id}` : '';
-      // '/api/v1/posts(/:_id)'
-      console.log('getting resource from url', `${API_BASE}${state.get('resource')}${scope}`);
+      //GET '/api/v1/posts(/:_id)'
       return axios.get(`${API_BASE}${state.get('resource')}${scope}`)
     },
     loading: CollectionActions.loading,
     success: CollectionActions.fetchSuccess, // (required)
+    error: CollectionActions.error, // (required),
+    
+  },
+  patch: {
+    remote(state, _id){
+      //PATCH '/api/v1/posts/:_id'
+      return axios.patch(`${API_BASE}${state.get('resource')}/${_id}`, state.get('data').get(_id).toJS())
+    },
+    loading: CollectionActions.loading,
+    success: CollectionActions.saveSuccess, // (required)
     error: CollectionActions.error, // (required)
-    
-    shouldFetch(state, query) {
-      return true;
-    }
-    
   }
 };
 

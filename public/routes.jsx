@@ -10,7 +10,7 @@ import PostList from './views/post/list';
 
 module.exports = (
   <Route handler={App}>
-    <Route name='post' handler={PostIndex}>
+    <Route name='post.index' handler={PostIndex}>
       <Route name='post.list' path='/blog' handler={PostList}/>
       <Route name='post.view' path='/post/:_id'  handler={PostView}/>
       <Route name='post.edit' path='/post/:_id/edit' handler={PostEdit}/>

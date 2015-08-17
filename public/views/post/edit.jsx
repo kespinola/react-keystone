@@ -5,9 +5,13 @@ import _ from 'lodash';
 import {ButtonInput, Input} from 'react-bootstrap';
 import EditableDiv from 'react-wysiwyg-editor';
 import PostStore from '../../stores/post';
+import PostActions from '../../actions/post';
 
 const EditPost = React.createClass({
   
+  _getData(){
+    return this.props.data.toJS()._id;
+  },
   render(){
 
     const {
@@ -35,12 +39,17 @@ const EditPost = React.createClass({
     )
   },
   
-  _handleChange(key,value){
-    alert(value);
+  _handleChange(key,e){
+    const{
+      _id
+      } = this.props;
+    PostActions.update({_id, update:{key, value:e.target.value}});
   },
   
   _handleSubmit(e){
     e.preventDefault();
+    console.log(this.props);
+    PostStore.patch(this.props._id);
   },
 });
 

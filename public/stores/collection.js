@@ -10,9 +10,11 @@ class CollectionStore {
 	constructor(config){
     const{
       resource,
+      actions,
       } = config;
     
     this.waitOn = config.waitOn || [];
+    this.actions = actions || [];
 
     this.waitOn.forEach((store)=>{
       store.fetch();
@@ -25,6 +27,12 @@ class CollectionStore {
     
     this.bindActions(CollectionActions);
     this.registerAsync(CollectionSource);
+    
+    this.actions.forEach( action => {
+      console.log(action);
+      this.bindActions(action);  
+    });
+    
 	}
   
 	onFetchSuccess(payload){
@@ -32,6 +40,8 @@ class CollectionStore {
     this.waitFor(this.waitOn);
     
     let data = payload.data[this.state.get('resource')] || [];
+    
+    console.log(data);
     
     data = _.reduce(data,(memo, obj)=>{
       
@@ -58,6 +68,10 @@ class CollectionStore {
     this.setState(this.state.set('data', Immutable.fromJS(data).merge(this.state.get('data'))));
 	}
   
+  onSaveSuccess(payload){
+    console.log('save success', payload);
+  }
+  
   onError(response){
     if (response instanceof Error) {
       // Something happened in setting up the request that triggered an Error
@@ -70,6 +84,16 @@ class CollectionStore {
       console.log(response.headers);
       console.log(response.config);
     }
+  }
+  
+  onUpdate(payload){
+    const{
+      _id,
+      update
+      } = payload;
+    const data = this.state.get('data');
+    const updated = data.get(_id).set(update.key, update.value);
+    this.setState(this.state.set('data',data.set(_id,updated)));
   }
 }
 
