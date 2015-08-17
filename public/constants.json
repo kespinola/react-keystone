@@ -1,4 +1,3 @@
 {
-  "API_BASE":"/api/v1/",
-  "AREAS":["blog"]
+  "API_BASE":"/api/v1/"
 }

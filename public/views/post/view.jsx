@@ -11,7 +11,10 @@ const Post = React.createClass({
       data,
       } = this.props;
     
+    if(!data) return null;
+    
     const {
+      _id,
       title,
       text,
       } = data.toJS();
@@ -20,7 +23,7 @@ const Post = React.createClass({
       <Container direction='column' component='article'>
         <h1>{title}</h1>
         <div dangerouslySetInnerHTML={{__html: text}}/>
-        <ButtonLink to="blog.edit" params={{_id}}>Edit Post</ButtonLink>
+        <ButtonLink to="post.edit" params={{_id}}>Edit Post</ButtonLink>
       </Container>
     )
   }

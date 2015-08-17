@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, RouteHandler, Navigation} from 'react-router';
+import {Link, RouteHandler, Navigation, State} from 'react-router';
 import Layout from './_layout/base';
 import {Grid, Row, Col, Nav}  from 'react-bootstrap';
 import {NavItemLink} from 'react-router-bootstrap';
@@ -7,13 +7,13 @@ import Container from 'react-container';
 
 const App = React.createClass({
   
-  mixins:[Navigation],
+  mixins:[Navigation, State],
   
 	getDefaultProps(){
 		return {
 			nav: [
 				{route:'home', text: 'Home'},
-				{route: 'blog', text: 'Blog'}
+				{route: 'post.list', text: 'Blog'}
 			]
 		}
 	},
@@ -26,7 +26,7 @@ const App = React.createClass({
         <Grid fluid={true}>
           <Row>
             <Col xs={12} sm={3} lg={2}>
-              <Nav bsStyle='pills' stacked activeKey={1} onSelect={this._handleSelect}>
+              <Nav bsStyle='pills' stacked activeKey={1}>
                 {nav.map((item)=>{
                   const{
                     route,
@@ -36,7 +36,7 @@ const App = React.createClass({
               </Nav>
             </Col>
             <Col xs={12} sm={9} lg={10}>
-              <RouteHandler {... this.props}/>
+              <RouteHandler _id={this.getParams()._id}/>
             </Col>
           </Row>
         </Grid>

@@ -5,12 +5,6 @@ import CollectionSource from '../sources/collection';
 import CollectionActions from '../actions/collection';
 import _s from 'underscore.string';
 
-function join(ids, map){
-  return ids.map((id)=>{
-    return map.get(id)
-  });
-}
-
 class CollectionStore {
 	
 	constructor(config){
@@ -37,15 +31,17 @@ class CollectionStore {
     
     this.waitFor(this.waitOn);
     
-    let data = _.reduce(payload.data[this.state.get('resource')],(memo, obj)=>{
+    let data = payload.data[this.state.get('resource')] || [];
+    
+    data = _.reduce(data,(memo, obj)=>{
       
-      this.waitOn.forEach((store)=>{
+      this.waitOn.forEach(store => {
         const collection = store.getState().get('data');
-        const group = store.getState().get('resource');
-        const single = _s.rtrim(group,"s");
+        const many = store.getState().get('resource');
+        const single = _s.rtrim(many,"s");
         
-        if(obj[group]){
-          obj[group] = obj[group].map((id)=>{
+        if(obj[many]){
+          obj[many] = obj[many].map((id)=>{
             return collection.get(id);
           })
         }else if(obj[single]){
@@ -59,15 +55,13 @@ class CollectionStore {
       return memo;
       
     },{});
-    
-    data = Immutable.fromJS(data);
-    this.setState(this.state.set('data', data.merge(this.state.get('data'))));
+    this.setState(this.state.set('data', Immutable.fromJS(data).merge(this.state.get('data'))));
 	}
   
   onError(response){
     if (response instanceof Error) {
       // Something happened in setting up the request that triggered an Error
-      console.log('Error', response.message);
+      console.log(response.message);
     } else {
       // The request was made, but the server responded with a status code
       // that falls out of the range of 2xx
@@ -77,7 +71,6 @@ class CollectionStore {
       console.log(response.config);
     }
   }
-  
 }
 
 export default immutable(CollectionStore);

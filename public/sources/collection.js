@@ -4,22 +4,24 @@ var CollectionActions = require('../actions/collection');
 
 const CollectionSource = {
   fetch: {
-    remote(state) {
-      return axios.get(`${API_BASE}${state.get('resource')}`);
-    },
-    
-    local(state){
-      return state.get('data');
+    remote(state, query = {}, projection = {}) {
+      const {
+        _id,
+        } = query;
+      const scope = _id ? `/${_id}` : '';
+      // '/api/v1/posts(/:_id)'
+      console.log('getting resource from url', `${API_BASE}${state.get('resource')}${scope}`);
+      return axios.get(`${API_BASE}${state.get('resource')}${scope}`)
     },
     loading: CollectionActions.loading,
     success: CollectionActions.fetchSuccess, // (required)
     error: CollectionActions.error, // (required)
-
-    shouldFetch(state) {
-      return state.get('data').count() === 0;
+    
+    shouldFetch(state, query) {
+      return true;
     }
     
-  },
+  }
 };
 
 module.exports = CollectionSource;

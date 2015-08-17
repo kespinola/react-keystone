@@ -14,6 +14,8 @@ const EditPost = React.createClass({
       data,
       } = this.props;
 
+    if(!data) return null;
+    
     const {
       title,
       text,
