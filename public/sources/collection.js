@@ -38,7 +38,12 @@ const CollectionSource = {
     loading: CollectionActions.loading,
     success: CollectionActions.patchSuccess, // (required)
     error: CollectionActions.error, // (required)
-  }
+  },
+  create:{
+    remote(state){
+      return axios.put(`${API_BASE}${state.get('re')}`)
+    } 
+  },
 };
 
 module.exports = CollectionSource;
