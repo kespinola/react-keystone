@@ -36,7 +36,7 @@ const CollectionSource = {
       return axios.patch(`${API_BASE}${state.get('resource')}/${item._id}`, item)
     },
     loading: CollectionActions.loading,
-    success: CollectionActions.saveSuccess, // (required)
+    success: CollectionActions.patchSuccess, // (required)
     error: CollectionActions.error, // (required)
   }
 };

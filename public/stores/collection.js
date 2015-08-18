@@ -75,7 +75,9 @@ class CollectionStore {
     this.setState(this.state.set('data', Immutable.fromJS(data).merge(this.state.get('data'))));
 	}
   
-  onSaveSuccess(payload){
+  //@TODO: Figure out why this is not binding correctly
+  onPatchSuccess(payload){
+    console.log('patch success');
     const key = this.state.get('primaryKey');
     const collection = this.state.get('data');
     const lookup = doc[key];
