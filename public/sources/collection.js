@@ -22,13 +22,14 @@ const CollectionSource = {
   patch: {
     remote(state, key){
       let item = state.get('data').get(key).toJS();
+      
       state.get('waitOn').forEach( store => {
         const many = store.getState().get('resource');
         const one = _s.rtrim(many,'s');
         if(item.hasOwnProperty(one)){
           item[one] = item[one]._id;
         }else if(item.hasOwnProperty(many)){
-          item[many] = item[many].map(obj => { return obj._id} );
+          item[many] = item[many].map(obj => { return obj._id });
         }
       });
       //PATCH '/api/v1/posts/:_id'

@@ -1,9 +1,33 @@
 import _ from 'lodash';
+import alt from '../alt';
 import immutable from 'alt/utils/ImmutableUtil';
 import Immutable from 'immutable';
 import CollectionSource from '../sources/collection';
 import CollectionActions from '../actions/collection';
 import _s from 'underscore.string';
+
+function join(data, key, dependencies){
+  return _.reduce(data, (memo, obj)=>{
+
+    dependencies.forEach(store => {
+      const collection = store.getState().get('data');
+      const many = store.getState().get('resource');
+      const single = _s.rtrim(many,'s');
+
+      if(obj[many]){
+        obj[many] = obj[many].map( id => {return collection.get(id)});
+      }else if(obj[single]){
+        obj[single] = collection.get(obj[single]);
+      }
+
+    });
+    
+    memo[obj[key]] = obj;
+    
+    return memo;
+    
+  },{});
+}
 
 class CollectionStore {
 	
@@ -46,32 +70,20 @@ class CollectionStore {
     let data = payload.data[this.state.get('resource')] || [];
     const key = this.state.get('primaryKey');
     
-    data = _.reduce(data,(memo, obj)=>{
-      
-      this.waitOn.forEach(store => {
-        const collection = store.getState().get('data');
-        const many = store.getState().get('resource');
-        const single = _s.rtrim(many,'s');
-        
-        if(obj[many]){
-          obj[many] = obj[many].map( id => {return collection.get(id)});
-        }else if(obj[single]){
-         obj[single] = collection.get(obj[single]); 
-        }
-        
-      });
-      
-      memo[obj[key]] = obj;
-      
-      return memo;
-      
-    },{});
+    data = join(data, key, this.waitOn);
     
     this.setState(this.state.set('data', Immutable.fromJS(data).merge(this.state.get('data'))));
 	}
   
   onSaveSuccess(payload){
-    console.log('save success', payload);
+    const key = this.state.get('primaryKey');
+    const collection = this.state.get('data');
+    const lookup = doc[key];
+    let doc = payload.data[_s.rtrim(this.state.get('resource'))];
+    console.log('save success', doc);
+    doc = join(doc, key, this.state.get('waitOn'));
+    this.setState(this.state.set('data', collection.set(doc[key], Immutable.fromJS(doc).merge(collection.get(lookup)))));
+    console.log(this.state.get('data').toJS())
   }
   
   onError(response){
