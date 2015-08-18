@@ -1,6 +1,8 @@
-var axios = require('axios');
-var {API_BASE} = require('../constants.json');
-var CollectionActions = require('../actions/collection');
+import axios from 'axios';
+import {API_BASE} from '../constants.json';
+import CollectionActions from '../actions/collection';
+import _s from 'underscore.string';
+import _ from 'lodash';
 
 const CollectionSource = {
   fetch: {
@@ -18,21 +20,19 @@ const CollectionSource = {
     
   },
   patch: {
-    remote(state, _id){
-      //PATCH '/api/v1/posts/:_id'
-      
-      let item = state.get('data').get(_id).map(value => {
-        debugger;
-        if(value.has('_id')){
-          return value.get('_id'); 
-        }else if(_.isArray(value.toJS())){
-          return value.map( map => {
-            return map.get('_id')
-          })
+    remote(state, key){
+      let item = state.get('data').get(key).toJS();
+      state.get('waitOn').forEach( store => {
+        const many = store.getState().get('resource');
+        const one = _s.rtrim(many,'s');
+        if(item.hasOwnProperty(one)){
+          item[one] = item[one]._id;
+        }else if(item.hasOwnProperty(many)){
+          item[many] = item[many].map(obj => { return obj._id} );
         }
       });
-      debugger;
-      return axios.patch(`${API_BASE}${state.get('resource')}/${_id}`, item.toJS())
+      //PATCH '/api/v1/posts/:_id'
+      return axios.patch(`${API_BASE}${state.get('resource')}/${item._id}`, item)
     },
     loading: CollectionActions.loading,
     success: CollectionActions.saveSuccess, // (required)
