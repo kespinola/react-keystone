@@ -9,7 +9,8 @@ console.log(PostActions);
 const config = {
   resource:'posts', 
   waitOn:[TopicStore, UserStore],
-  actions:[PostActions]
+  actions:[PostActions],
+  primaryKey:'slug'
 };
 
 export default alt.createStore(CollectionStore, 'PostStore', config);

@@ -22,17 +22,16 @@ const CollectionSource = {
       //PATCH '/api/v1/posts/:_id'
       
       let item = state.get('data').get(_id).map(value => {
+        debugger;
         if(value.has('_id')){
           return value.get('_id'); 
-        }else if(value.isMap()){
-          return value.map(map=>{
+        }else if(_.isArray(value.toJS())){
+          return value.map( map => {
             return map.get('_id')
           })
         }
       });
-      
       debugger;
-      
       return axios.patch(`${API_BASE}${state.get('resource')}/${_id}`, item.toJS())
     },
     loading: CollectionActions.loading,

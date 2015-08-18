@@ -8,10 +8,6 @@ import PostStore from '../../stores/post';
 import PostActions from '../../actions/post';
 
 const EditPost = React.createClass({
-  
-  _getData(){
-    return this.props.data.toJS()._id;
-  },
   render(){
 
     const {
@@ -41,15 +37,14 @@ const EditPost = React.createClass({
   
   _handleChange(key,e){
     const{
-      _id
+      slug
       } = this.props;
-    PostActions.update({_id, update:{key, value:e.target.value}});
+    PostActions.update({key:slug, update:{key, value:e.target.value}});
   },
   
   _handleSubmit(e){
     e.preventDefault();
-    console.log(this.props);
-    PostStore.patch(this.props._id);
+    PostStore.patch(this.props.slug);
   },
 });
 

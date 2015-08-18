@@ -22,9 +22,9 @@ const PostIndex = React.createClass({
     const{
       PostState,
       } = this.props;
-    const _id = this.getParams()._id;
+    const slug = this.getParams().slug;
     const collection = PostState.get('data');
-    return <RouteHandler _id={_id} data={_id ? collection.get(_id) : collection.toArray()}/>
+    return <RouteHandler slug={slug} data={slug ? collection.get(slug) : collection.toArray()}/>
   },
   
   componentDidUpdate(){
@@ -37,9 +37,9 @@ const PostIndex = React.createClass({
   
   _fetchData(){
     const {
-      _id
+      slug,
       } = this.props;
-    PostStore.fetch(_id ? {_id} : {},{title:1, created_At:1})
+    PostStore.fetch(slug ? {slug} : {})
   },
 });
 

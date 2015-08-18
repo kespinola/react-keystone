@@ -15,6 +15,7 @@ const List = React.createClass({
         {this.props.data.map((item)=>{
           const{
             _id,
+            slug,
             title,
             text,
             topics,
@@ -23,7 +24,7 @@ const List = React.createClass({
             } = item.toJS();
           return (
             <article key={_id}>
-              <h1><Link to="post.view" params={{_id}}>{title}</Link></h1>
+              <h1><Link to="post.view" params={{slug}}>{title}</Link></h1>
               {user ? <h3>{`Written by ${user.name.first} ${user.name.last} on ${moment(publishedDate).format('MMMM DD YYYY')}`}</h3> : null}
               <div dangerouslySetInnerHTML={{__html: text}}/>
               <ul className="inline-list">
