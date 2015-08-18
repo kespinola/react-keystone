@@ -39,7 +39,7 @@ const PostIndex = React.createClass({
     const {
       _id
       } = this.props;
-    PostStore.fetch(_id ? {_id} : {})
+    PostStore.fetch(_id ? {_id} : {},{title:1, created_At:1})
   },
 });
 

@@ -15,21 +15,22 @@ class CollectionStore {
     
     this.waitOn = config.waitOn || [];
     this.actions = actions || [];
-
-    this.waitOn.forEach((store)=>{
-      store.fetch();
-    });
+    this.actions = this.actions.concat(CollectionActions);
+    
     
     this.state = Immutable.Map({
       resource,
+      waitOn:this.waitOn,
       data: Immutable.Map({}),
     });
     
-    this.bindActions(CollectionActions);
     this.registerAsync(CollectionSource);
     
+    this.waitOn.forEach(store => {
+      store.fetch();
+    })
+    
     this.actions.forEach( action => {
-      console.log(action);
       this.bindActions(action);  
     });
     

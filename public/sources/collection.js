@@ -20,7 +20,20 @@ const CollectionSource = {
   patch: {
     remote(state, _id){
       //PATCH '/api/v1/posts/:_id'
-      return axios.patch(`${API_BASE}${state.get('resource')}/${_id}`, state.get('data').get(_id).toJS())
+      
+      let item = state.get('data').get(_id).map(value => {
+        if(value.has('_id')){
+          return value.get('_id'); 
+        }else if(value.isMap()){
+          return value.map(map=>{
+            return map.get('_id')
+          })
+        }
+      });
+      
+      debugger;
+      
+      return axios.patch(`${API_BASE}${state.get('resource')}/${_id}`, item.toJS())
     },
     loading: CollectionActions.loading,
     success: CollectionActions.saveSuccess, // (required)
