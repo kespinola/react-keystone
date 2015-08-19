@@ -5,6 +5,7 @@ import _s from 'underscore.string';
 import _ from 'lodash';
 
 const CollectionSource = {
+  
   fetch: {
     remote(state, query = {}, projection = {}) {
       const {
@@ -19,6 +20,7 @@ const CollectionSource = {
     error: CollectionActions.error, // (required),
     
   },
+  
   patch: {
     remote(state, key){
       let item = state.get('data').get(key).toJS();
@@ -38,7 +40,17 @@ const CollectionSource = {
     loading: CollectionActions.loading,
     success: CollectionActions.patchSuccess, // (required)
     error: CollectionActions.error, // (required)
-  }
+  },
+  
+  create:{
+    remote(state, doc){
+      //PUT '/api/v1/posts'
+      return axios.put(`${API_BASE}${state.get('resource')}`, doc);
+    },
+    loading: CollectionActions.loading,
+    success: CollectionActions.createSuccess, // (required)
+    error: CollectionActions.error, // (required)
+  },
 };
 
 module.exports = CollectionSource;
