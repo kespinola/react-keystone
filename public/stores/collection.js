@@ -12,7 +12,7 @@ function join(data, key, dependencies){
     dependencies.forEach(store => {
       const collection = store.getState().get('data');
       const many = store.getState().get('resource');
-      const single = _s.rtrim(many,'s');
+      const single = _s.rtrim(many, 's');
 
       if(obj[many]){
         obj[many] = obj[many].map( id => {return collection.get(id)});
@@ -81,11 +81,11 @@ class CollectionStore {
     const key = this.state.get('primaryKey');
     const collection = this.state.get('data');
     const lookup = doc[key];
+    
     let doc = payload.data[_s.rtrim(this.state.get('resource'))];
-    console.log('save success', doc);
     doc = join(doc, key, this.state.get('waitOn'));
-    this.setState(this.state.set('data', collection.set(doc[key], Immutable.fromJS(doc).merge(collection.get(lookup)))));
-    console.log(this.state.get('data').toJS())
+    
+    this.setState(this.state.set('data', collection.set(lookup, Immutable.fromJS(doc).merge(collection.get(lookup)))));
   }
   
   onError(response){
@@ -102,6 +102,11 @@ class CollectionStore {
     }
   }
   
+  onCreateSuccess(payload){
+    debugger;
+    console.log('create was successful: ', payload);
+  }
+
   onUpdate(payload){
     const{
       key,
@@ -111,6 +116,11 @@ class CollectionStore {
     const updated = data.get(key).set(update.key, update.value);
     this.setState(this.state.set('data',data.set(key,updated)));
   }
+  
+  onDestroySuccess(payload){
+    console.log('delete was successful: ', payload);
+  }
+  
 }
 
 export default immutable(CollectionStore);

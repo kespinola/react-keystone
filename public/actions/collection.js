@@ -1,5 +1,5 @@
-var alt = require('../alt');
+import alt from '../alt';
 
-const CollectionActions = alt.generateActions('fetchSuccess', 'patchSuccess', 'error', 'loading');
+const CollectionActions = alt.generateActions('fetchSuccess', 'createSuccess', 'patchSuccess', 'destroySuccess', 'error', 'loading');
 
-module.exports = CollectionActions;
+export default CollectionActions;

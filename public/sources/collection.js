@@ -44,11 +44,21 @@ const CollectionSource = {
   
   create:{
     remote(state, doc){
-      //PUT '/api/v1/posts'
-      return axios.put(`${API_BASE}${state.get('resource')}`, doc);
+      //POST '/api/v1/posts'
+      return axios.post(`${API_BASE}${state.get('resource')}`, doc);
     },
     loading: CollectionActions.loading,
     success: CollectionActions.createSuccess, // (required)
+    error: CollectionActions.error, // (required)
+  },
+
+  destroy:{
+    remote(state, _id){
+      //DELETE '/api/v1/posts/:_id'
+      return axios.delete(`${API_BASE}${state.get('resource')}/${_id}`);
+    },
+    loading: CollectionActions.loading,
+    success: CollectionActions.destroySuccess, // (required)
     error: CollectionActions.error, // (required)
   },
 };
