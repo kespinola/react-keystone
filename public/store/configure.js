@@ -1,16 +1,15 @@
 import {createStore, applyMiddleware, combineReducers} from 'redux';
 import promiseMiddleware from 'redux-promise';
 import loggerMiddleware from 'redux-logger';
-import batchUpdatesMiddleWare from 'redux-batched-updates';
-import * as reducers from '../reducers';
+import { batchedUpdatesMiddleware } from 'redux-batched-updates';
+import reducer from '../reducers';
 
-const reducer = combineReducers(reducers);
-const createStoreWithMiddleWare = applyMiddleware(
+const createStoreWithMiddleware = applyMiddleware(
   promiseMiddleware,
-  batchUpdatesMiddleWare,
+  batchedUpdatesMiddleware,
   loggerMiddleware
 )(createStore);
 
-export default function configureStore(initialState){
-  return createStoreWithMiddleWare(reducer, initialState);
-}
+export default function configureStore (initialState = {}){
+  return createStoreWithMiddleware(reducer, initialState);
+};

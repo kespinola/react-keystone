@@ -4,8 +4,6 @@ import Container from 'react-container';
 import _ from 'lodash';
 import {ButtonInput, Input} from 'react-bootstrap';
 import EditableDiv from 'react-wysiwyg-editor';
-import PostStore from '../../stores/post';
-import PostActions from '../../actions/post';
 
 const EditPost = React.createClass({
   render(){
@@ -39,12 +37,10 @@ const EditPost = React.createClass({
     const{
       slug
       } = this.props;
-    PostActions.update({key:slug, update:{key, value:e.target.value}});
   },
   
   _handleSubmit(e){
     e.preventDefault();
-    PostStore.patch(this.props.slug);
   },
 });
 

@@ -3,11 +3,12 @@ import {State} from 'react-router';
 import Container from 'react-container';
 import _ from 'lodash';
 import {ButtonInput, Input} from 'react-bootstrap';
-import PostStore from '../../stores/post';
 import {Navigation} from 'react-router';
 
 const CreatePost = React.createClass({
+  
   mixins:[Navigation],
+  
   getInitialState(){
     return {
       title:'',

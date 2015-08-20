@@ -1,6 +1,4 @@
 import React from 'react';
-import PostStore from '../../stores/post';
-import connectToStores from 'alt/utils/connectToStores';
 import {Link} from 'react-router';
 import {Label,Button, Grid, Row, Col, DropdownButton, MenuItem} from 'react-bootstrap';
 import {ButtonLink, MenuItemLink} from 'react-router-bootstrap';
@@ -8,6 +6,13 @@ import moment from 'moment';
 
 
 const List = React.createClass({
+  
+  getDefaultProps(){
+    return{
+      data:[],
+    }
+  },
+  
   render(){
     return (
       <Grid fluid={true}>
@@ -60,9 +65,7 @@ const List = React.createClass({
     )
   },
   
-  _handleDestroy(_id){
-    PostStore.destroy(_id);
-  }
+  _handleDestroy(_id){}
   
 });
 

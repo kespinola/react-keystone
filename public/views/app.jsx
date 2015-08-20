@@ -4,6 +4,10 @@ import Layout from './_layout/base';
 import {Grid, Row, Col, Nav}  from 'react-bootstrap';
 import {NavItemLink} from 'react-router-bootstrap';
 import Container from 'react-container';
+import configureStore from '../store/configure';
+import { Provider } from 'react-redux';
+
+const store = configureStore({});
 
 const App = React.createClass({
   
@@ -22,25 +26,31 @@ const App = React.createClass({
 			nav
 			} = this.props;
 		return(
-			<Layout {... this.props}>
-        <Grid fluid={true}>
-          <Row>
-            <Col xs={12} sm={3} lg={2}>
-              <Nav bsStyle='pills' stacked activeKey={1}>
-                {nav.map((item)=>{
-                  const{
-                    route,
-                    } = item;
-                  return <NavItemLink key={route} eventKey={route} to={route}>{item.text}</NavItemLink>
-                })}
-              </Nav>
-            </Col>
-            <Col xs={12} sm={9} lg={10}>
-              <RouteHandler/>
-            </Col>
-          </Row>
-        </Grid>
-			</Layout>
+      <Provider store={store}>
+        {()=>{
+          return (
+            <Layout {... this.props}>
+              <Grid fluid={true}>
+                <Row>
+                  <Col xs={12} sm={3} lg={2}>
+                    <Nav bsStyle='pills' stacked activeKey={1}>
+                      {nav.map((item)=>{
+                        const{
+                          route,
+                          } = item;
+                        return <NavItemLink key={route} eventKey={route} to={route}>{item.text}</NavItemLink>
+                      })}
+                    </Nav>
+                  </Col>
+                  <Col xs={12} sm={9} lg={10}>
+                    <RouteHandler/>
+                  </Col>
+                </Row>
+              </Grid>
+            </Layout>
+          )
+        }}
+      </Provider>
 		)
 	}
 });

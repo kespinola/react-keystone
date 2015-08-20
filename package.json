@@ -26,6 +26,7 @@
     "react-bootstrap": "^0.24.4",
     "react-container": "^0.2.4",
     "react-engine": "^1.7.0",
+    "react-redux": "^0.9.0",
     "react-router": "^0.13.3",
     "react-router-bootstrap": "^0.18.1",
     "react-wysiwyg-editor": "0.0.6",
@@ -63,8 +64,8 @@
   "scripts": {
     "styles:build": "lessc public/styles/main.less > public/build/main.css",
     "styles:watch": "watch-less --compress public/styles/main.less --output public/build --directory public/styles/ --extension .css",
-    "webpack:build": "webpack --progress --colors -p",
-    "webpack:watch": "webpack -d --progress --colors --watch  --inline",
+    "webpack:build": "NODE_ENV=production webpack --progress --colors -p",
+    "webpack:watch": "NODE_ENV=development webpack -d --progress --colors --watch  --inline",
     "backend:start": "babel-node keystone.js",
     "backend:watch": "nodemon --debug --ignore public/fonts --ignore public/images --ignore public/views --ignore node_modules --exec babel-node keystone.js",
     "start": "npm run webpack:build; npm run styles:build; npm run backend:start",

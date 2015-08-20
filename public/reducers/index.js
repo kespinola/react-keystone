@@ -1,6 +1,4 @@
-import resourceReduce from './resource';
+import resourceReducer from './resource';
 import {combineReducers} from 'redux';
 
-export  default combineReducers(
-  resourceReduce
-)
+export  default resourceReducer;
