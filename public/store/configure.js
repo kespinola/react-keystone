@@ -7,7 +7,6 @@ import { Map } from 'immutable';
 
 const createStoreWithMiddleware = applyMiddleware(
   promiseMiddleware,
-  batchedUpdatesMiddleware,
   loggerMiddleware
 )(createStore);
 

@@ -40,7 +40,7 @@ const List = React.createClass({
                 <Row componentClass='article' key={_id}>
                   <Col xs={7} sm={10}>
                     <h1><Link to="post.view" params={{slug}}>{title}</Link></h1>
-                    {user ? <h3>{`Written by ${user.name.first} ${user.name.last} on ${moment(publishedDate).format('MMMM DD YYYY')}`}</h3> : null}
+
                   </Col>
                   <Col xs={5} sm={2} className='text-right'>
                     <DropdownButton bsStyle='link' title='...' className='inline-block' noCaret>
@@ -50,11 +50,6 @@ const List = React.createClass({
                   </Col>
                   <Col xs={12}>
                     <div dangerouslySetInnerHTML={{__html: text}}/>
-                    <ul className="inline-list">
-                      {topics.map((topic)=>{
-                        return <li key={topic._id}><Label bsStyle='default'>{topic.name}</Label></li>
-                      })}
-                    </ul>
                   </Col>
                 </Row>
               )

@@ -5,7 +5,7 @@ import { fetchResource } from '../../actions/resource.js';
 
 function mapStateToProps(state){
   return{
-    posts: state.get('resources').get('posts').toJS(),
+    data: state.get('resources').get('posts'),
   }
 }
 
@@ -21,7 +21,7 @@ const PostIndex = React.createClass({
   
   render(){
     const slug = this.getParams().slug;
-    return <RouteHandler slug={slug}/>
+    return <RouteHandler slug={slug} data={this.props.data.toArray()} />
   },
   componentDidMount(){
     this.props.fetch({resource:'posts', query:{}})
