@@ -40,7 +40,7 @@ const CreatePost = React.createClass({
     if(_.isEmpty(title)){
       alert('Title is required!');
     }else{
-      PostStore.create({title});
+      this.props.create({resource:'posts', doc:{title}});
       this.transitionTo('post.list');
     }
   },

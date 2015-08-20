@@ -9,8 +9,13 @@ import { Provider } from 'react-redux';
 import { Map } from 'immutable';
 
 const store = configureStore(Map({
-  resources: Map({
-    posts: Map({}),
+  collections:Map({
+    posts:Map({})
+  }),
+  resources:Map({
+    posts:Map({
+      primaryKey:'slug',
+    }),
   }),
 }));
 

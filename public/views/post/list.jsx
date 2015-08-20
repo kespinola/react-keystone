@@ -26,7 +26,7 @@ const List = React.createClass({
         </Row>
         <Row>
           <Col xs={12}>
-            {this.props.data.map((item)=>{
+            {this.props.data.toArray().map((item)=>{
               const{
                 _id,
                 slug,
@@ -45,7 +45,7 @@ const List = React.createClass({
                   <Col xs={5} sm={2} className='text-right'>
                     <DropdownButton bsStyle='link' title='...' className='inline-block' noCaret>
                       <MenuItemLink to='post.edit' params={{slug}}>Edit</MenuItemLink>
-                      <MenuItem bsStyle='danger' onSelect={this._handleDestroy.bind(null, _id)}>Delete</MenuItem>
+                      <MenuItem bsStyle='danger' onSelect={this._handleDestroy.bind(null, slug)}>Delete</MenuItem>
                     </DropdownButton>
                   </Col>
                   <Col xs={12}>
@@ -60,7 +60,13 @@ const List = React.createClass({
     )
   },
   
-  _handleDestroy(_id){}
+  _handleDestroy(slug){
+    const{
+      data,
+      } = this.props;
+    const doc = data.get(slug);
+    this.props.destroy({resource:'posts', _id:doc.get('_id'), key:slug})
+  }
   
 });
 
