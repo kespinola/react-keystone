@@ -1,7 +1,13 @@
 import React from 'react';
 import {RouteHandler, State} from 'react-router';
 import { connect } from 'react-redux';
-import { fetchResource, createResource, destroyResource } from '../../actions/resource.js';
+import { 
+  fetchResource, 
+  createResource, 
+  destroyResource, 
+  updateResource,
+  patchResource,
+  } from '../../actions/resource.js';
 
 function mapStateToProps(state){
   return{
@@ -14,7 +20,8 @@ function mapDispatchToProps(dispatch){
     fetch: payload => dispatch(fetchResource(payload)),
     create: payload => dispatch(createResource(payload)),
     destroy: payload => dispatch(destroyResource(payload)),
-    patch: payload => dispatch(patchResource(payload))
+    update: payload => dispatch(updateResource(payload)),
+    patch: payload => dispatch(patchResource(payload)),
   }
 }
 

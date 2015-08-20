@@ -35,12 +35,19 @@ const EditPost = React.createClass({
   
   _handleChange(key,e){
     const{
-      slug
+      slug,
+      update,
       } = this.props;
+    update({resource:'posts', key:slug, update:{[key]:e.target.value}})
   },
   
   _handleSubmit(e){
+    const{
+      patch,
+      data,
+      } = this.props;
     e.preventDefault();
+    patch({resource:'posts', doc:data.toJS()})
   },
 });
 

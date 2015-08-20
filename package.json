@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "async": "^0.9.0",
+    "axios": "^0.5.4",
     "babel": "^5.8.12",
     "bootstrap": "^3.3.5",
     "css": "^2.2.1",
@@ -12,7 +13,6 @@
     "express": "^4.13.0",
     "fluxxor": "^1.6.0",
     "immutable": "^3.7.4",
-    "isomorphic-fetch": "^2.1.1",
     "js": "^0.1.0",
     "json-loader": "^0.5.2",
     "jsx-loader": "^0.13.2",
