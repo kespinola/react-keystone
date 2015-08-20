@@ -1,47 +1,48 @@
 import React from 'react';
-import PostStore from '../../stores/post';
-import connectToStores from 'alt/utils/connectToStores';
 import {RouteHandler, State} from 'react-router';
+import { connect } from 'react-redux';
+import { 
+  fetchResource, 
+  createResource, 
+  destroyResource, 
+  updateResource,
+  patchResource,
+  } from '../../actions/resource.js';
+
+function mapStateToProps(state){
+  return{
+    data: state.get('collections').get('posts').sort((a,b)=>{ return a.get('createdAt') < b.get('createdAt')}),
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    fetch: payload => dispatch(fetchResource(payload)),
+    create: payload => dispatch(createResource(payload)),
+    destroy: payload => dispatch(destroyResource(payload)),
+    update: payload => dispatch(updateResource(payload)),
+    patch: payload => dispatch(patchResource(payload)),
+  }
+}
 
 const PostIndex = React.createClass({
   
   mixins:[State],
   
-  statics: {
-    getStores(props) {
-      return [PostStore]
-    },
-    getPropsFromStores(props) {
-      return {
-        PostState:PostStore.getState(),
-      }
-    }
-  },
-  
   render(){
     const{
-      PostState,
+      data,
       } = this.props;
     const slug = this.getParams().slug;
-    const collection = PostState.get('data');
-    return <RouteHandler slug={slug} data={slug ? collection.get(slug) : collection.toArray()}/>
+    return <RouteHandler {...this.props} slug={slug} data={slug ? data.get(slug) : data}/>
   },
-  
-  componentDidUpdate(){
-    this._fetchData();
-  },
-  
   componentDidMount(){
-    this._fetchData();
-  },
-  
-  _fetchData(){
-    const {
-      slug,
-      } = this.props;
-    PostStore.fetch(slug ? {slug} : {})
-  },
+    this.props.fetch({resource:'posts', query:{}})
+  }
 });
 
-export default connectToStores(PostIndex);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PostIndex);
 
