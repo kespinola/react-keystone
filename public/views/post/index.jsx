@@ -10,7 +10,7 @@ function mapStateToProps(state = {}){
 
 function mapDispatchToProps(dispatch){
   return {
-    onFetchRequest: ()=> dispatch(fetchRequest()),
+    fetch: (payload) => dispatch(fetchRequest(payload)),
   }
 }
 
@@ -23,8 +23,7 @@ const PostIndex = React.createClass({
     return <RouteHandler slug={slug}/>
   },
   componentDidMount(){
-    console.log(this.props);
-    this.props.onFetchRequest({test:'successful'});
+    this.props.fetch({resource:'posts', query:{}});
   }
 });
 
