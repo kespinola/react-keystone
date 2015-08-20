@@ -1,18 +1,31 @@
-import {FETCH_RESOURCE_REQUEST, FETCHING_RESOURCE, FETCH_RESOURCE_SUCCESS, FETCH_RESOURCE_FAILURE} from '../actions/resource';
+import {FETCH_RESOURCE} from '../actions/resource';
 import {handleActions} from 'redux-actions';
-import {Map} from 'immutable';
+import {Map, fromJS} from 'immutable';
 
 const resourceReducer = handleActions({
-  [FETCH_RESOURCE_REQUEST]:{
-    next(state,action){
-      console.log(state,action, ' next fro su');
-      return state;
+  [FETCH_RESOURCE]:{
+    next(state, action){
+      const{
+        payload,
+        } = action;
+      
+      const{
+        resource,
+        } = action.meta;
+      
+      const resources = state.get('resources');
+      
+      const hash = _.reduce(payload[resource],(memo, obj) =>{
+        memo[obj._id] = obj;
+        return memo;
+      },{});
+      
+      const Map = fromJS(hash);
+      
+      return state.set('resources', resources.set(resource, Map.merge(resources.get(resource))))
     },
     throw(state,action){}
   },
-  [FETCHING_RESOURCE]: (state, action) => {
-    return state;
-  }
-}, {resources:Map({})});
+});
 
 export default resourceReducer;

@@ -6,8 +6,13 @@ import {NavItemLink} from 'react-router-bootstrap';
 import Container from 'react-container';
 import configureStore from '../store/configure';
 import { Provider } from 'react-redux';
+import { Map } from 'immutable';
 
-const store = configureStore({});
+const store = configureStore(Map({
+  resources: Map({
+    posts: Map({}),
+  }),
+}));
 
 const App = React.createClass({
   

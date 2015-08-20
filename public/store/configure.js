@@ -3,6 +3,7 @@ import promiseMiddleware from 'redux-promise';
 import loggerMiddleware from 'redux-logger';
 import { batchedUpdatesMiddleware } from 'redux-batched-updates';
 import reducer from '../reducers';
+import { Map } from 'immutable';
 
 const createStoreWithMiddleware = applyMiddleware(
   promiseMiddleware,
@@ -10,6 +11,6 @@ const createStoreWithMiddleware = applyMiddleware(
   loggerMiddleware
 )(createStore);
 
-export default function configureStore (initialState = {}){
+export default function configureStore (initialState = Map({})){
   return createStoreWithMiddleware(reducer, initialState);
 };

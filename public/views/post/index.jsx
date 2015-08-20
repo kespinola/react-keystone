@@ -1,16 +1,17 @@
 import React from 'react';
 import {RouteHandler, State} from 'react-router';
 import { connect } from 'react-redux';
-import { fetchRequest } from '../../actions/resource.js';
+import { fetchResource } from '../../actions/resource.js';
 
-function mapStateToProps(state = {}){
-  console.log(state, ' mapping state to props');
-  return{state}
+function mapStateToProps(state){
+  return{
+    posts: state.get('resources').get('posts').toJS(),
+  }
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    fetch: (payload) => dispatch(fetchRequest(payload)),
+    fetch: (payload) => dispatch(fetchResource(payload)),
   }
 }
 
@@ -23,7 +24,7 @@ const PostIndex = React.createClass({
     return <RouteHandler slug={slug}/>
   },
   componentDidMount(){
-    this.props.fetch({resource:'posts', query:{}});
+    this.props.fetch({resource:'posts', query:{}})
   }
 });
 
