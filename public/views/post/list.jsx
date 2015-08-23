@@ -18,7 +18,7 @@ const List = React.createClass({
       <Grid fluid={true}>
         <Row>
           <Col xs={12} sm={6}>
-            <h1>Blog</h1>
+            <h1>Blog List</h1>
           </Col>
           <Col xs={12} sm={6} className='text-right'>
             <ButtonLink to='post.create' bsStyle='primary'>+ Create Post</ButtonLink>

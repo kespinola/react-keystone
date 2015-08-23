@@ -37,6 +37,7 @@
     "redux-logger": "0.0.3",
     "redux-promise": "^0.5.0",
     "redux-react-router": "^0.4.0",
+    "redux-thunk": "^0.1.0",
     "restful-keystone": "^0.3.0",
     "underscore": "^1.8.0",
     "underscore.string": "^3.1.1",
@@ -55,6 +56,7 @@
     "nodemon": "^1.4.0",
     "npm-run-all": "^1.2.6",
     "parallelshell": "^2.0.0",
+    "react-hot-loader": "^1.2.9",
     "watch-less": "0.0.4",
     "webpack-dev-server": "^1.10.1"
   },

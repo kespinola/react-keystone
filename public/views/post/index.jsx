@@ -1,8 +1,8 @@
 import React from 'react';
 import {RouteHandler, State} from 'react-router';
 import { connect } from 'react-redux';
-import { 
-  fetchResource, 
+import {
+  findResource,
   createResource, 
   destroyResource, 
   updateResource,
@@ -17,10 +17,9 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return {
-    fetch: payload => dispatch(fetchResource(payload)),
+    find: payload => dispatch(findResource(payload)),
     create: payload => dispatch(createResource(payload)),
     destroy: payload => dispatch(destroyResource(payload)),
-    update: payload => dispatch(updateResource(payload)),
     patch: payload => dispatch(patchResource(payload)),
   }
 }
@@ -36,9 +35,11 @@ const PostIndex = React.createClass({
     const slug = this.getParams().slug;
     return <RouteHandler {...this.props} slug={slug} data={slug ? data.get(slug) : data}/>
   },
+  
   componentDidMount(){
-    this.props.fetch({resource:'posts', query:{}})
+    this.props.find({resource:'posts', query:{}})
   }
+  
 });
 
 export default connect(
