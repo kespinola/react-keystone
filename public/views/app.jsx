@@ -22,12 +22,14 @@ import posts from './post/definition';
 
 const store = configureStore(Map({
   collections: Map({
-    posts: Map({})
+    posts: Map({}),
+    topics: Map({}),
+    users: Map({}),
   }),
   resources: Map({
     posts,
     topics: Map({}),
-    users: Map({})
+    users: Map({}),
   }),
 }));
 

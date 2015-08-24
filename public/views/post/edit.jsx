@@ -21,13 +21,13 @@ const EditPost = React.createClass({
       model,
       } = this.state;
     const{
-      schema,
+      resource,
       } = this.props;
     return (
       <Row>
         <Col xs={12} md={6}>
           <Form
-            schema={schema}
+            schema={resource.get('schema')}
             value={model}
             onChange={model => this.setState({model})}>
             <Form.Field name='title'/>

@@ -68,7 +68,7 @@
   },
   "scripts": {
     "styles:build": "node-sass public/styles/main.sass -o public/build",
-    "styles:watch": "node-sass -w public/styles/main.sass -o public/build",
+    "styles:watch": "node-sass --source-map-embed -w public/styles/main.sass -o public/build",
     "webpack:build": "NODE_ENV=production webpack --progress --colors -p",
     "webpack:watch": "NODE_ENV=development webpack -d --progress --colors --watch  --inline",
     "backend:start": "babel-node keystone.js",
