@@ -1,6 +1,6 @@
 import React from 'react';
-import Container from 'react-container';
 import _ from 'lodash';
+import { Row, Col } from 'react-bootstrap';
 import {ButtonLink} from 'react-router-bootstrap';
 
 const Post = React.createClass({
@@ -20,11 +20,13 @@ const Post = React.createClass({
       } = data.toJS();
     
     return (
-      <Container direction='column' component='article'>
-        <h1>{title}</h1>
-        <div dangerouslySetInnerHTML={{__html: text}}/>
-        <ButtonLink to="post.edit" params={{slug}}>Edit Post</ButtonLink>
-      </Container>
+      <Row>
+        <Col xs={12}>
+          <h1>{title}</h1>
+          <div dangerouslySetInnerHTML={{__html: text}}/>
+          <ButtonLink to="post.edit" params={{slug}}>Edit Post</ButtonLink>
+        </Col>
+      </Row>
     )
   }
 });

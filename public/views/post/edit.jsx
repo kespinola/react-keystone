@@ -1,35 +1,45 @@
 import React from 'react';
-import {State} from 'react-router';
-import Container from 'react-container';
+import { Row, Col } from 'react-bootstrap';
+import { State } from 'react-router';
 import _ from 'lodash';
-import {ButtonInput, Input} from 'react-bootstrap';
-import EditableDiv from 'react-wysiwyg-editor';
+import Form from 'react-formal';
 
 const EditPost = React.createClass({
+  
+  getInitialState(){
+    return {
+      model:this.props.data ? this.props.data.toJS() : {},
+    }
+  },
+  
+  componentWillReceiveProps(props){
+    props.data && this.setState({model:props.data.toJS()});
+  },
+  
   render(){
-
     const {
-      data,
+      model,
+      } = this.state;
+    const{
+      schema,
       } = this.props;
-
-    if(!data) return null;
-    
-    const {
-      title,
-      text,
-      } = data.toJS();
-
     return (
-      <Container direction='column' component='article'>
-        <form onSubmit={this._handleSubmit}>
-          <Input type='text' label='Title' value={title} onChange={this._handleChange.bind(null,'title')}/>
-          <div className='form-group'>
-            <label className='control-label'>Text</label>
-            <EditableDiv className='html-editor' content={text} onChange={this._handleChange.bind(null,'text')}/>
-          </div>
-          <ButtonInput type='submit' value='Save Post'/>
-        </form>
-      </Container>
+      <Row>
+        <Col xs={12} md={6}>
+          <Form
+            schema={schema}
+            value={model}
+            onChange={model => this.setState({model})}>
+            <Form.Field name='title'/>
+            <Form.Field name='state' type='select'>
+              <option value={'draft'}>Draft</option>
+              <option value={'published'}>Published</option>
+              <option value={'archived'}>Archived</option>
+            </Form.Field>
+            <Form.Button type='submit'>Edit Post</Form.Button>
+          </Form>
+        </Col>
+      </Row>
     )
   },
   

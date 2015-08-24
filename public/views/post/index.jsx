@@ -12,6 +12,7 @@ import {
 function mapStateToProps(state){
   return{
     data: state.get('collections').get('posts').sort((a,b)=>{ return a.get('createdAt') < b.get('createdAt')}),
+    schema: state.get('resources').get('posts').get('schema'),
   }
 }
 

@@ -29,7 +29,6 @@ export function findResource(req){
     const state = getState();
     const query = req.query ? req.query : {};
     const collection = state.get('collections').get(req.resource).toArray().map(obj => obj.toJS());
-    debugger;
     if(!_.filter(collection, query).length) dispatch(fetchResource(req));
   }
 }

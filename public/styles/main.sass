@@ -1,0 +1,34 @@
+@import '../../node_modules/react-container/dist/component.css'
+@import '../../node_modules/normalize-sass/normalize'
+@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap'
+
+$body-bg: rgb(66, 66, 66)
+$text-color: #fff
+$sidebar-width: 256px
+$primary-font: Roboto, sans-serif
+
+body
+	background: $body-bg 
+	color: $text-color 
+	font-family: $primary-font
+	overflow-x: hidden
+	ul 
+		margin: 0
+		padding: 0
+
+.inline-list
+	li
+		list-style: none 
+		display: inline-block 
+		margin: 0 20px 10px 0
+		&:last-child
+			margin: 0 0 10px 0
+form
+	&.basic
+		input
+			display: block
+			background: transparent
+			border: $brand-primary
+			border-radius: 4px
+		button
+			@extend .basic-b

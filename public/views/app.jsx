@@ -1,21 +1,33 @@
 import React from 'react';
-import {Link, RouteHandler, Navigation, State} from 'react-router';
+import { Link, RouteHandler, Navigation, State } from 'react-router';
 import Layout from './_layout/base';
 import {Grid, Row, Col, Nav}  from 'react-bootstrap';
-import {NavItemLink} from 'react-router-bootstrap';
-import Container from 'react-container';
+import { NavItemLink } from 'react-router-bootstrap';
 import configureStore from '../store/configure';
 import { Provider } from 'react-redux';
 import { Map } from 'immutable';
+import cx from 'classnames';
+import Form from 'react-formal';
+import _ from 'lodash';
+
+/*Plugin configure*/
+
+Form.addInputTypes(
+  require('react-formal-inputs')
+);
+
+/*Resource Definition Imports*/
+
+import posts from './post/definition';
 
 const store = configureStore(Map({
-  collections:Map({
-    posts:Map({})
+  collections: Map({
+    posts: Map({})
   }),
-  resources:Map({
-    posts:Map({
-      primaryKey:'slug',
-    }),
+  resources: Map({
+    posts,
+    topics: Map({}),
+    users: Map({})
   }),
 }));
 
@@ -31,6 +43,14 @@ const App = React.createClass({
 			]
 		}
 	},
+  
+  _getClassName(){
+    const routes = _.reduce(this.getRoutes(),(memo, route) =>{
+      memo[route.name] = true;
+    },{});
+    return cx(routes);
+  },
+  
 	render(){
 		const {
 			nav

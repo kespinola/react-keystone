@@ -1,5 +1,4 @@
 import React from 'react';
-import Container from 'react-container';
 
 const Home = React.createClass({
   contextTypes:{
