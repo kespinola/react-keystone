@@ -21,7 +21,7 @@ The development mode of the app leverages webpack react hot loading with browser
 - Finally `npm run dev`
 
 ##Collection Management
-Model your collections and access a super user admin using [Keystone](keystonejs.com). Visit the site on info on collection creation and data management. 
+Model your collections and access a super user admin using [Keystone](http://keystonejs.com). Visit the site on info on collection creation and data management. 
 
 ##Deploy
 Under development...
