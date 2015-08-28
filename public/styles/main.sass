@@ -24,6 +24,12 @@ html, body
 
 .sidebar
 	background: $body-accent
+	height: auto
+	@media (min-width: 768px)
+		height: 100%
+		position: fixed
+		top: 0
+		left: 0
 
 .inline-list
 	li

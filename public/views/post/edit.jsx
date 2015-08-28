@@ -6,8 +6,11 @@ import WYSIWYG from '../_lib/wysiwyg';
 import Datepicker from '../_lib/datepicker';
 import Form from 'react-formal';
 import { DropdownList } from 'react-widgets';
-
+import _s from 'underscore.string';
+import { Navigation } from 'react-router';
 const EditPost = React.createClass({
+  
+  mixins:[Navigation],
   
   getInitialState(){
     return {
@@ -40,6 +43,7 @@ const EditPost = React.createClass({
             <Form.Field name='state' type={DropdownList} data={['draft','published','archived']} />
             <Form.Field name='publishedDate' type={Datepicker}/>
             <Form.Field name='text' type={WYSIWYG}/>
+            <Form.Summary />
             <Form.Button type='submit' className='submit'>Edit Post</Form.Button>
           </Form>
         </Col>
@@ -48,9 +52,14 @@ const EditPost = React.createClass({
   },
   
   _handleSubmit(){
-    debugger;
-    this.props.patch({resource:'posts', doc:this.state.model})
+    const{
+      model,
+      } = this.state;
+    const slug = _s.slugify(model.title);
+    this.props.patch({resource:'posts', doc:_.extend(_.clone(model),{slug})});
+    this.transitionTo('post.list');
   },
+  
 });
 
 export default EditPost;

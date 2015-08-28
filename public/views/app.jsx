@@ -72,7 +72,7 @@ const App = React.createClass({
                       })}
                     </Nav>
                   </Col>
-                  <Col xs={12} sm={9} lg={10}>
+                  <Col xs={12} sm={9} smOffset={3} lg={10} lgOffset={2}>
                     <RouteHandler/>
                   </Col>
                 </Row>
