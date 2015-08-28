@@ -11,7 +11,7 @@ import {
 
 function mapStateToProps(state){
   return{
-    data: state.get('collections').get('posts').sort((a,b)=>{ return a.get('createdAt') < b.get('createdAt')}),
+    collection: state.get('collections').get('posts').sort((a,b)=>{ return a.get('createdAt') < b.get('createdAt')}),
     schema: state.get('resources').get('posts').get('schema'),
   }
 }
@@ -31,10 +31,10 @@ const PostIndex = React.createClass({
   
   render(){
     const{
-      data,
+      collection,
       } = this.props;
     const slug = this.getParams().slug;
-    return <RouteHandler {...this.props} slug={slug} data={slug ? data.get(slug) : data}/>
+    return <RouteHandler {...this.props} slug={slug} doc={slug ? collection.get(slug) : null}/>
   },
   
   componentDidMount(){

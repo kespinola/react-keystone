@@ -7,12 +7,6 @@ import moment from 'moment';
 
 const List = React.createClass({
   
-  getDefaultProps(){
-    return{
-      data:[],
-    }
-  },
-  
   render(){
     return (
       <Grid fluid={true}>
@@ -26,7 +20,7 @@ const List = React.createClass({
         </Row>
         <Row>
           <Col xs={12}>
-            {this.props.data.toArray().map((item)=>{
+            {this.props.collection.toArray().map((item)=>{
               const{
                 _id,
                 slug,

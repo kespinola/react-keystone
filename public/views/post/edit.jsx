@@ -14,12 +14,12 @@ const EditPost = React.createClass({
   
   getInitialState(){
     return {
-      model:this.props.data ? this.props.data.toJS() : {},
+      model:this.props.doc ? this.props.doc.toJS() : {},
     }
   },
   
   componentWillReceiveProps(props){
-    props.data && this.setState({model:props.data.toJS()});
+    props.data && this.setState({model:props.doc.toJS()});
   },
   
   render(){

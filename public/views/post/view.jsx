@@ -8,16 +8,16 @@ const Post = React.createClass({
   render(){
     
     const {
-      data,
+      doc,
       } = this.props;
     
-    if(!data) return null;
+    if(!doc) return null;
     
     const {
       slug,
       title,
       text,
-      } = data.toJS();
+      } = doc.toJS();
     
     return (
       <Row>
