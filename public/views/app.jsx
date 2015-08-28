@@ -60,9 +60,9 @@ const App = React.createClass({
         {()=>{
           return (
             <Layout {... this.props}>
-              <Grid fluid={true}>
-                <Row>
-                  <Col xs={12} sm={3} lg={2}>
+              <Grid fluid={true} className='fill-height'>
+                <Row className='fill-height'>
+                  <Col className='sidebar fill-height' xs={12} sm={3} lg={2}>
                     <Nav bsStyle='pills' stacked activeKey={1}>
                       {nav.map((item)=>{
                         const{

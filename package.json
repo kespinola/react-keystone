@@ -52,6 +52,8 @@
     "babel-loader": "^5.3.2",
     "browser-sync": "^2.8.2",
     "bs-snippet-injector": "git+https://github.com/ksespinola/bs-snippet-injector.git",
+    "css-loader": "^0.16.0",
+    "file-loader": "^0.8.4",
     "jshint-stylish": "^0.1.3",
     "less": "^2.5.1",
     "minimist": "^1.1.2",
@@ -60,6 +62,8 @@
     "npm-run-all": "^1.2.6",
     "parallelshell": "^2.0.0",
     "react-hot-loader": "^1.2.9",
+    "style-loader": "^0.12.3",
+    "url-loader": "^0.5.6",
     "webpack-dev-server": "^1.10.1"
   },
   "engines": {
@@ -68,7 +72,7 @@
   },
   "scripts": {
     "styles:build": "node-sass public/styles/main.sass -o public/build",
-    "styles:watch": "node-sass -w public/styles/main.sass -o public/build",
+    "styles:watch": "node-sass -w public/styles/main.sass -o public/build --source-map-embed",
     "webpack:build": "NODE_ENV=production webpack --progress --colors -p",
     "webpack:watch": "NODE_ENV=development webpack -d --progress --colors --watch  --inline",
     "backend:start": "babel-node keystone.js",

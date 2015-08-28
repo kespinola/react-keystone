@@ -2,6 +2,10 @@ import { Map } from 'immutable';
 import yup from 'yup';
 
 const PostDefinition = Map({
+  keys: Map({
+    singular:'post',
+    plural:'posts',
+  }),
   primaryKey: 'slug',
   loading: false,
   schema: yup.object({

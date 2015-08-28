@@ -28,6 +28,18 @@ function mergeCollectionsFromHash(hash, name, collections){
   
 }
 
+function updateDoc(state, action){
+  const{
+    payload,
+    } = action;
+  const{
+    resource,
+    } = action.meta;
+  const meta = state.get('resources').get(resource);
+  const hash = hashFromCollection(payload.data[meta.get('keys').get('singular')], meta.get('primaryKey'));
+  return state.set('collections', mergeCollectionsFromHash(hash, resource, state.get('collections')));
+}
+
 const resourceReducer = handleActions({
   [FETCH_RESOURCE]:{
     next(state, action){
@@ -49,15 +61,7 @@ const resourceReducer = handleActions({
   },
   [CREATE_RESOURCE]:{
     next(state, action){
-      const{
-        payload,
-        } = action;
-      const{
-        resource,
-        } = action.meta;
-      const meta = state.get('resources').get(resource);
-      const hash = hashFromCollection(payload.data[_s.rtrim(resource,'s')], meta.get('primaryKey'));
-      return state.set('collections', mergeCollectionsFromHash(hash, resource, state.get('collections')));
+      return updateDoc(state, action)
     }
   },
   [DESTROY_RESOURCE]:{
@@ -71,25 +75,9 @@ const resourceReducer = handleActions({
       return state.set('collections', updated);
     }
   },
-  [UPDATE_RESOURCE]:{
-    next(state, action){
-      const{
-        resource,
-        key,
-        update,
-        } = action.payload;
-      const lookup = key ? key : '_id';
-      const collections = state.get('collections');
-      const resources = collections.get(resource);
-      const current = resources.get(lookup);
-      const updated = collections.set(resource, resources.set(lookup, current.merge(fromJS(update))));
-      return state.set('collections', updated);
-    }
-  },
   [PATCH_RESOURCE]:{
     next(state, action){
-      debugger;
-      return state;
+      return updateDoc(state, action);
     }
   },
 });

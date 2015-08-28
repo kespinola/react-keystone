@@ -1,8 +1,11 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Input } from 'react-bootstrap';
 import { State } from 'react-router';
 import _ from 'lodash';
+import WYSIWYG from '../_lib/wysiwyg';
+import Datepicker from '../_lib/datepicker';
 import Form from 'react-formal';
+import { DropdownList } from 'react-widgets';
 
 const EditPost = React.createClass({
   
@@ -25,39 +28,28 @@ const EditPost = React.createClass({
       } = this.props;
     return (
       <Row>
-        <Col xs={12} md={6}>
+        <Col xs={12} md={6} mdOffset={3}>
           <Form
+            className='basic'
             schema={schema}
             value={model}
-            onChange={model => this.setState({model})}>
+            onChange={model => this.setState({model})}
+            onSubmit={this._handleSubmit}
+            >
             <Form.Field name='title'/>
-            <Form.Field name='state' type='select'>
-              <option value={'draft'}>Draft</option>
-              <option value={'published'}>Published</option>
-              <option value={'archived'}>Archived</option>
-            </Form.Field>
-            <Form.Button type='submit'>Edit Post</Form.Button>
+            <Form.Field name='state' type={DropdownList} data={['draft','published','archived']} />
+            <Form.Field name='publishedDate' type={Datepicker}/>
+            <Form.Field name='text' type={WYSIWYG}/>
+            <Form.Button type='submit' className='submit'>Edit Post</Form.Button>
           </Form>
         </Col>
       </Row>
     )
   },
   
-  _handleChange(key,e){
-    const{
-      slug,
-      update,
-      } = this.props;
-    update({resource:'posts', key:slug, update:{[key]:e.target.value}})
-  },
-  
-  _handleSubmit(e){
-    const{
-      patch,
-      data,
-      } = this.props;
-    e.preventDefault();
-    patch({resource:'posts', doc:data.toJS()})
+  _handleSubmit(){
+    debugger;
+    this.props.patch({resource:'posts', doc:this.state.model})
   },
 });
 
