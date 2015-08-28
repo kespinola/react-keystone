@@ -51,7 +51,6 @@
     "babel-core": "^5.8.20",
     "babel-loader": "^5.3.2",
     "browser-sync": "^2.8.2",
-    "bs-snippet-injector": "git+https://github.com/ksespinola/bs-snippet-injector.git",
     "css-loader": "^0.16.0",
     "file-loader": "^0.8.4",
     "jshint-stylish": "^2.0.1",
