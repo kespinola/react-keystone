@@ -24,7 +24,7 @@ function mergeCollectionsFromHash(hash, name, collections){
   
   const map = fromJS(hash);
   
-  return collections.set(name, collections.get('posts').mergeDeep(map));
+  return collections.set(name, collections.get(name).mergeDeep(map));
   
 }
 
@@ -48,14 +48,17 @@ const resourceReducer = handleActions({
         } = action;
       
       const{
-        resource,
+        resources,
         } = action.meta;
       
-      const meta = state.get('resources').get(resource);
+      const collections = _.reduce(payload, (memo, result, i) => {
+        const resource = resources[i];
+        const meta = state.get('resources').get(resource);
+        const hash = hashFromCollection(result.data[resource], meta.has('primaryKey') ? meta.get('primaryKey') : '_id');
+        return _.merge(memo, {[resource]:fromJS(memo[resource]).mergeDeep(fromJS(hash))});
+      }, state.get('collections').toJS());
       
-      const hash = hashFromCollection(payload.data[resource], meta.get('primaryKey'));
-      
-      return state.set('collections', mergeCollectionsFromHash(hash, resource, state.get('collections')))
+      return state.set('collections', fromJS(collections));
     },
     throw(state,action){}
   },

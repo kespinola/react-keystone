@@ -14,7 +14,10 @@ const PostDefinition = Map({
     publishedDate: yup.date(),
     text: yup.string().required('Text is required.'),
   }),
-  waitOn:['topics','users']
+  populate:Map({
+    topics:'topics',
+    user:'users',
+  })
 });
 
 export default PostDefinition;
