@@ -8,6 +8,7 @@ import Form from 'react-formal';
 import { DropdownList } from 'react-widgets';
 import _s from 'underscore.string';
 import { Navigation } from 'react-router';
+
 const EditPost = React.createClass({
   
   mixins:[Navigation],
@@ -39,11 +40,11 @@ const EditPost = React.createClass({
             onChange={model => this.setState({model})}
             onSubmit={this._handleSubmit}
             >
+            <Form.Summary />
             <Form.Field name='title'/>
             <Form.Field name='state' type={DropdownList} data={['draft','published','archived']} />
             <Form.Field name='publishedDate' type={Datepicker}/>
             <Form.Field name='text' type={WYSIWYG}/>
-            <Form.Summary />
             <Form.Button type='submit' className='submit'>Edit Post</Form.Button>
           </Form>
         </Col>

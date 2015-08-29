@@ -16,7 +16,6 @@ Form.addInputTypes(
   require('react-formal-inputs')
 );
 
-/*Resource Definition Imports*/
 
 import posts from './post/definition';
 
