@@ -28,14 +28,14 @@ const EditPost = React.createClass({
       model,
       } = this.state;
     const{
-      schema,
+      meta,
       } = this.props;
     return (
       <Row>
         <Col xs={12} md={6} mdOffset={3}>
           <Form
             className='basic'
-            schema={schema}
+            schema={meta.get('schema')}
             value={model}
             onChange={model => this.setState({model})}
             onSubmit={this._handleSubmit}

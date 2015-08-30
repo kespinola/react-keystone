@@ -10,10 +10,12 @@ import {
   } from '../../actions/resource';
 
 import {
-  resourceSelectorFactory,
+  populatedResourceSelectorFactory,
   } from '../../selectors/resource';
 
-const postResourceSelector = resourceSelectorFactory('posts');  
+import def from './definition';
+
+const postResourceSelector = populatedResourceSelectorFactory(def);  
 
 function mapDispatchToProps(dispatch){
   return {

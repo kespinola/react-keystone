@@ -37,6 +37,6 @@ export function findResource(req){
       } = req;
     const collection = state.get('collections').get(resource).toArray().map(obj => obj.toJS());
     const populate = state.get('resources').get(resource).get('populate').toArray();
-    if(!_.filter(collection, query).length) dispatch(fetchResources(_.assign(req,{resources:populate.concat(resource)})));
+    if(!_.filter(collection, query).length) dispatch(fetchResources(_.assign(req, {resources:populate.concat(resource)})));
   }
 }
