@@ -15,7 +15,7 @@ const EditPost = React.createClass({
   
   getInitialState(){
     return {
-      model:this.props.doc ? this.props.doc.toJS() : {},
+      doc:this.props.doc ? this.props.doc.toJS() : {},
     }
   },
   
@@ -25,19 +25,20 @@ const EditPost = React.createClass({
   
   render(){
     const {
-      model,
+      doc,
       } = this.state;
     const{
       meta,
       } = this.props;
+    
     return (
       <Row>
         <Col xs={12} md={6} mdOffset={3}>
           <Form
             className='basic'
             schema={meta.get('schema')}
-            value={model}
-            onChange={model => this.setState({model})}
+            value={doc}
+            onChange={doc => this.setState({doc})}
             onSubmit={this._handleSubmit}
             >
             <Form.Summary />
@@ -54,10 +55,9 @@ const EditPost = React.createClass({
   
   _handleSubmit(){
     const{
-      model,
+      doc,
       } = this.state;
-    const slug = _s.slugify(model.title);
-    this.props.patch({resource:'posts', doc:_.extend(_.clone(model),{slug})});
+    this.props.patch({resource:'posts', doc});
     this.transitionTo('post.list');
   },
   

@@ -7,6 +7,7 @@ const PostDefinition = Map({
     plural:'posts',
   }),
   primaryKey: 'slug',
+  sortBy:(a, b) => { return a.get('createdAt') > b.get('createdAt') },
   loading: false,
   schema: yup.object({
     title: yup.string().required('Title is required.'),

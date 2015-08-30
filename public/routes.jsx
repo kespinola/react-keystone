@@ -18,8 +18,8 @@ export default (
       <Route name='post.index' handler={PostIndex}>
         <Route name='post.list' path='/blog' handler={PostList}/>
         <Route name='post.create' path='/post/create' handler={PostCreate}/>
-        <Route name='post.view' path='/post/:slug'  handler={PostView}/>
-        <Route name='post.edit' path='/post/:slug/edit' handler={PostEdit}/>
+        <Route name='post.view' path='/post/:_id'  handler={PostView}/>
+        <Route name='post.edit' path='/post/:_id/edit' handler={PostEdit}/>
         <DefaultRoute handler={PostList}/>
       </Route>
       <Route name='home' handler={Home}/>

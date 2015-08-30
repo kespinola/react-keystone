@@ -14,7 +14,7 @@ const Post = React.createClass({
     if(!doc) return null;
     
     const {
-      slug,
+      _id,
       title,
       text,
       } = doc.toJS();
@@ -24,7 +24,7 @@ const Post = React.createClass({
         <Col xs={12}>
           <h1>{title}</h1>
           <div dangerouslySetInnerHTML={{__html: text}}/>
-          <ButtonLink to="post.edit" params={{slug}}>Edit Post</ButtonLink>
+          <ButtonLink to="post.edit" params={{_id}}>Edit Post</ButtonLink>
         </Col>
       </Row>
     )

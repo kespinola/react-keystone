@@ -23,7 +23,6 @@ const List = React.createClass({
             {this.props.collection.toArray().map( item => {
               const{
                 _id,
-                slug,
                 title,
                 text,
                 topics,
@@ -33,13 +32,13 @@ const List = React.createClass({
               return (
                 <Row componentClass='article' key={_id}>
                   <Col xs={7} sm={10}>
-                    <h1><Link to="post.view" params={{slug}}>{title}</Link></h1>
+                    <h1><Link to="post.view" params={{_id}}>{title}</Link></h1>
                     {user ? <h3>{`Written by ${user.name.first} ${user.name.last} on ${moment(publishedDate).format('MMMM DD YYYY')}`}</h3> : null}
                   </Col>
                   <Col xs={5} sm={2} className='text-right'>
                     <DropdownButton bsStyle='link' title='...' className='inline-block' noCaret>
-                      <MenuItemLink to='post.edit' params={{slug}}>Edit</MenuItemLink>
-                      <MenuItem bsStyle='danger' onSelect={this._handleDestroy.bind(null, slug)}>Delete</MenuItem>
+                      <MenuItemLink to='post.edit' params={{_id}}>Edit</MenuItemLink>
+                      <MenuItem bsStyle='danger' onSelect={this._handleDestroy.bind(null, _id)}>Delete</MenuItem>
                     </DropdownButton>
                   </Col>
                   <Col xs={12}>
@@ -59,12 +58,8 @@ const List = React.createClass({
     )
   },
   
-  _handleDestroy(slug){
-    const{
-      data,
-      } = this.props;
-    const doc = data.get(slug);
-    this.props.destroy({resource:'posts', _id:doc.get('_id'), key:slug})
+  _handleDestroy(_id){
+    this.props.destroy({resource:'posts', _id})
   }
   
 });

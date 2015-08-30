@@ -36,7 +36,7 @@ function updateDoc(state, action){
     resource,
     } = action.meta;
   const meta = state.get('resources').get(resource);
-  const hash = hashFromCollection(payload.data[meta.get('keys').get('singular')], meta.get('primaryKey'));
+  const hash = hashFromCollection(payload.data[meta.get('keys').get('singular')]);
   return state.set('collections', mergeCollectionsFromHash(hash, resource, state.get('collections')));
 }
 
@@ -53,8 +53,7 @@ const resourceReducer = handleActions({
       
       const collections = _.reduce(payload, (memo, result, i) => {
         const resource = resources[i];
-        const meta = state.get('resources').get(resource);
-        const hash = hashFromCollection(result.data[resource], meta.has('primaryKey') ? meta.get('primaryKey') : '_id');
+        const hash = hashFromCollection(result.data[resource]);
         return _.merge(memo, {[resource]:fromJS(memo[resource]).mergeDeep(fromJS(hash))});
       }, state.get('collections').toJS());
       
@@ -74,7 +73,7 @@ const resourceReducer = handleActions({
         key,
         } = action.meta;
       const collections = state.get('collections');
-      const updated = collections.set(resource, collections.get(resource).delete(key ? key : '_id'));
+      const updated = collections.set(resource, collections.get(resource).delete('_id'));
       return state.set('collections', updated);
     }
   },

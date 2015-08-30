@@ -51,7 +51,7 @@ export const populatedResourceSelectorFactory = def => {
       
       const keys = resource.meta.get('populate').keySeq().toArray();
       
-      const lookup = [p0, p1, p2, p3, p4].filter( obj => !_.isUndefined(obj) );
+      const lookup = [p0, p1, p2, p3, p4].filter( obj => obj );
       
       const collection = resource.collection.map( doc => {
         

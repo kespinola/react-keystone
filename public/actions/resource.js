@@ -21,6 +21,7 @@ export const createResource = createAction(CREATE_RESOURCE, req => {
 }, req => (req));
 
 export const destroyResource = createAction(DESTROY_RESOURCE, req => {
+  debugger;
   return axios.delete(`${API_BASE}${req.resource}/${req._id}`)
 }, req => (req));
 
