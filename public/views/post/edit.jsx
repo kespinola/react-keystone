@@ -20,7 +20,7 @@ const EditPost = React.createClass({
   },
   
   componentWillReceiveProps(props){
-    props.data && this.setState({model:props.doc.toJS()});
+    props.doc && this.setState({doc:props.doc.toJS()});
   },
   
   render(){
