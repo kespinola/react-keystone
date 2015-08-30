@@ -28,15 +28,14 @@ const EditPost = React.createClass({
       doc,
       } = this.state;
     const{
-      meta,
+      def,
       } = this.props;
-    
     return (
       <Row>
         <Col xs={12} md={6} mdOffset={3}>
           <Form
             className='basic'
-            schema={meta.get('schema')}
+            schema={def.get('schema')}
             value={doc}
             onChange={doc => this.setState({doc})}
             onSubmit={this._handleSubmit}
@@ -57,7 +56,11 @@ const EditPost = React.createClass({
     const{
       doc,
       } = this.state;
-    this.props.patch({resource:'posts', doc});
+    const{
+      def,
+      patch,
+      } = this.props;
+    patch({def, doc});
     this.transitionTo('post.list');
   },
   

@@ -34,10 +34,13 @@ const CreatePost = React.createClass({
     const{
       title,
       } = this.state;
+    const{
+      def,
+      } = this.props;
     if(_.isEmpty(title)){
       alert('Title is required!');
     }else{
-      this.props.create({resource:'posts', doc:{title}});
+      this.props.create({def, doc:{title}});
       this.transitionTo('post.list');
     }
   },

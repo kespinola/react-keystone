@@ -20,24 +20,22 @@ function hashFromCollection(collection, key = '_id'){
   
 }
 
-function mergeCollectionsFromHash(hash, name, collections){
-  
-  const map = fromJS(hash);
-  
-  return collections.set(name, collections.get(name).mergeDeep(map));
-  
-}
-
-function updateDoc(state, action){
-  const{
+function upsert(state, action){
+  const {
     payload,
     } = action;
-  const{
-    resource,
+  const {
+    def,
     } = action.meta;
-  const meta = state.get('resources').get(resource);
-  const hash = hashFromCollection(payload.data[meta.get('keys').get('singular')]);
-  return state.set('collections', mergeCollectionsFromHash(hash, resource, state.get('collections')));
+  const resource = def.get('name');
+  const collection = state.get('collections').get(resource);
+  const doc = payload.data[def.get('keys').get('singular')];
+  const {
+    _id,
+    } = doc;
+  const map = fromJS(doc);
+  const collections = state.get('collections').set(resource, collection.set(_id, collection.has(_id) ? collection.get(_id).mergeDeep(map) : map));
+  return state.set('collections', collections) ;
 }
 
 const resourceReducer = handleActions({
@@ -63,23 +61,24 @@ const resourceReducer = handleActions({
   },
   [CREATE_RESOURCE]:{
     next(state, action){
-      return updateDoc(state, action)
+      return upsert(state, action);
     }
   },
   [DESTROY_RESOURCE]:{
     next(state, action){
       const{
-        resource,
-        key,
+        def,
+        _id,
         } = action.meta;
+      const resource = def.get('name');
       const collections = state.get('collections');
-      const updated = collections.set(resource, collections.get(resource).delete('_id'));
-      return state.set('collections', updated);
+      const update = collections.set(resource, collections.get(resource).delete(_id));
+      return state.set('collections', update);
     }
   },
   [PATCH_RESOURCE]:{
     next(state, action){
-      return updateDoc(state, action);
+      return upsert(state, action);
     }
   },
 });

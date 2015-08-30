@@ -59,7 +59,10 @@ const List = React.createClass({
   },
   
   _handleDestroy(_id){
-    this.props.destroy({resource:'posts', _id})
+    const {
+      def,
+      } = this.props;
+    this.props.destroy({def, _id})
   }
   
 });

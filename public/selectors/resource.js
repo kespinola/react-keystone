@@ -17,12 +17,12 @@ function join(value, collection){
 
 const collectionSelector = state => state.get('collections');
 
-const metaSelector = state => state.get('resources');
+const defSelector = state => state.get('resources');
 
-const metaSelectorFactory = resource => {
+const defSelectorFactory = resource => {
   return immutableCreateSelector(
-    metaSelector,
-    meta => meta.get(resource)
+    defSelector,
+    def => def.get(resource)
   )  
 };
 
@@ -35,21 +35,20 @@ const collectionSelectorFactory = resource => {
 
 const resourceSelectorFactory = resource => {
   return immutableCreateSelector(
-    [collectionSelectorFactory(resource), metaSelectorFactory(resource)],
-    (collection, meta) => { return {collection, meta} }
+    [collectionSelectorFactory(resource), defSelectorFactory(resource)],
+    (collection, def) => { return {collection, def} }
   );
 };
 
 export const populatedResourceSelectorFactory = def => {
   
-  const resource = def.get('keys').get('plural');
   const populate = def.has('populate') ? def.get('populate').toArray().map( dependency => resourceSelectorFactory(dependency) ) : [];
   
   return immutableCreateSelector(
-    [resourceSelectorFactory(resource), ... populate],
+    [resourceSelectorFactory(def.get('name')), ... populate],
     (resource, p0, p1, p2, p3, p4) => {
       
-      const keys = resource.meta.get('populate').keySeq().toArray();
+      const keys = resource.def.get('populate').keySeq().toArray();
       
       const lookup = [p0, p1, p2, p3, p4].filter( obj => obj );
       
