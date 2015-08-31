@@ -1,6 +1,6 @@
 import React from 'react';
-import WYSIWYG from '../_lib/wysiwyg';
-import Datepicker from '../_lib/datepicker';
+import WYSIWYG from '../../_lib/wysiwyg';
+import Datepicker from '../../_lib/datepicker';
 import Form from 'react-formal';
 import { DropdownList } from 'react-widgets';
 import { Navigation } from 'react-router';
