@@ -6,13 +6,12 @@ const Datepicker = React.createClass({
   render(){
     const{
       value,
-      time,
       } = this.props;
-    return <DateTimePicker value={new Date(value)} onChange={this._handleChange} time={time} />
+    return <DateTimePicker value={value ? new Date(value) : null} onChange={this._handleChange} />
   },
   
   _handleChange(time){
-    this.props.onChange(new Date(time))
+    this.props.onChange(new Date(time));
   },
   
 });

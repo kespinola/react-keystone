@@ -35,7 +35,7 @@ const PostIndex = React.createClass({
       collection,
       } = this.props;
     const _id = this.getParams()._id;
-    return <RouteHandler {...this.props} _id={_id} doc={_id ? collection.get(_id) : null}/>
+    return <RouteHandler {... this.props} _id={_id} doc={_id ? collection.get(_id) : null}/>
   },
   
   componentDidMount(){
