@@ -32,5 +32,5 @@ var routes = {};
 
 // Setup Route Bindings
 module.exports = function(app) {
-	var rest = require('./rest');
+  require('./rest');
 };
