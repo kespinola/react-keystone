@@ -1,64 +1,36 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Input } from 'react-bootstrap';
 import { State } from 'react-router';
-import _ from 'lodash';
-import Form from 'react-formal';
+import { Navigation } from 'react-router';
+import Form from './_lib/form';
 
 const EditPost = React.createClass({
   
-  getInitialState(){
-    return {
-      model:this.props.data ? this.props.data.toJS() : {},
-    }
-  },
-  
-  componentWillReceiveProps(props){
-    props.data && this.setState({model:props.data.toJS()});
-  },
+  mixins:[Navigation],
   
   render(){
-    const {
-      model,
-      } = this.state;
     const{
-      resource,
+      def,
+      doc,
       } = this.props;
     return (
       <Row>
-        <Col xs={12} md={6}>
-          <Form
-            schema={resource.get('schema')}
-            value={model}
-            onChange={model => this.setState({model})}>
-            <Form.Field name='title'/>
-            <Form.Field name='state' type='select'>
-              <option value={'draft'}>Draft</option>
-              <option value={'published'}>Published</option>
-              <option value={'archived'}>Archived</option>
-            </Form.Field>
-            <Form.Button type='submit'>Edit Post</Form.Button>
-          </Form>
+        <Col xs={12} md={6} mdOffset={3}>
+          <Form def={def} doc={doc} onSubmit={this._handleSubmit}/>
         </Col>
       </Row>
     )
   },
   
-  _handleChange(key,e){
+  _handleSubmit(doc){
     const{
-      slug,
-      update,
+      def,
+      patch,
       } = this.props;
-    update({resource:'posts', key:slug, update:{[key]:e.target.value}})
+    patch({def, doc});
+    this.transitionTo('post.list');
   },
   
-  _handleSubmit(e){
-    const{
-      patch,
-      data,
-      } = this.props;
-    e.preventDefault();
-    patch({resource:'posts', doc:data.toJS()})
-  },
 });
 
 export default EditPost;

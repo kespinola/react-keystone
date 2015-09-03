@@ -20,12 +20,22 @@ function hashFromCollection(collection, key = '_id'){
   
 }
 
-function mergeCollectionsFromHash(hash, name, collections){
-  
-  const map = fromJS(hash);
-  
-  return collections.set(name, collections.get('posts').mergeDeep(map));
-  
+function upsert(state, action){
+  const {
+    payload,
+    } = action;
+  const {
+    def,
+    } = action.meta;
+  const resource = def.get('name');
+  const collection = state.get('collections').get(resource);
+  const doc = payload.data[def.get('keys').get('singular')];
+  const {
+    _id,
+    } = doc;
+  const map = fromJS(doc);
+  const collections = state.get('collections').set(resource, collection.set(_id, collection.has(_id) ? collection.get(_id).mergeDeep(map) : map));
+  return state.set('collections', collections) ;
 }
 
 const resourceReducer = handleActions({
@@ -36,60 +46,39 @@ const resourceReducer = handleActions({
         } = action;
       
       const{
-        resource,
+        resources,
         } = action.meta;
       
-      const meta = state.get('resources').get(resource);
+      const collections = _.reduce(payload, (memo, result, i) => {
+        const resource = resources[i];
+        const hash = hashFromCollection(result.data[resource]);
+        return _.merge(memo, {[resource]:fromJS(memo[resource]).mergeDeep(fromJS(hash))});
+      }, state.get('collections').toJS());
       
-      const hash = hashFromCollection(payload.data[resource], meta.get('primaryKey'));
-      
-      return state.set('collections', mergeCollectionsFromHash(hash, resource, state.get('collections')))
+      return state.set('collections', fromJS(collections));
     },
     throw(state,action){}
   },
   [CREATE_RESOURCE]:{
     next(state, action){
-      const{
-        payload,
-        } = action;
-      const{
-        resource,
-        } = action.meta;
-      const meta = state.get('resources').get(resource);
-      const hash = hashFromCollection(payload.data[_s.rtrim(resource,'s')], meta.get('primaryKey'));
-      return state.set('collections', mergeCollectionsFromHash(hash, resource, state.get('collections')));
+      return upsert(state, action);
     }
   },
   [DESTROY_RESOURCE]:{
     next(state, action){
       const{
-        resource,
-        key,
+        def,
+        _id,
         } = action.meta;
+      const resource = def.get('name');
       const collections = state.get('collections');
-      const updated = collections.set(resource, collections.get(resource).delete(key ? key : '_id'));
-      return state.set('collections', updated);
-    }
-  },
-  [UPDATE_RESOURCE]:{
-    next(state, action){
-      const{
-        resource,
-        key,
-        update,
-        } = action.payload;
-      const lookup = key ? key : '_id';
-      const collections = state.get('collections');
-      const resources = collections.get(resource);
-      const current = resources.get(lookup);
-      const updated = collections.set(resource, resources.set(lookup, current.merge(fromJS(update))));
-      return state.set('collections', updated);
+      const update = collections.set(resource, collections.get(resource).delete(_id));
+      return state.set('collections', update);
     }
   },
   [PATCH_RESOURCE]:{
     next(state, action){
-      debugger;
-      return state;
+      return upsert(state, action);
     }
   },
 });

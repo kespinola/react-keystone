@@ -8,23 +8,23 @@ const Post = React.createClass({
   render(){
     
     const {
-      data,
+      doc,
       } = this.props;
     
-    if(!data) return null;
+    if(!doc) return null;
     
     const {
-      slug,
+      _id,
       title,
       text,
-      } = data.toJS();
+      } = doc.toJS();
     
     return (
       <Row>
         <Col xs={12}>
           <h1>{title}</h1>
           <div dangerouslySetInnerHTML={{__html: text}}/>
-          <ButtonLink to="post.edit" params={{slug}}>Edit Post</ButtonLink>
+          <ButtonLink to="post.edit" params={{_id}}>Edit Post</ButtonLink>
         </Col>
       </Row>
     )

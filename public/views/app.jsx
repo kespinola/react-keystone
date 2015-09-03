@@ -16,7 +16,6 @@ Form.addInputTypes(
   require('react-formal-inputs')
 );
 
-/*Resource Definition Imports*/
 
 import posts from './post/definition';
 
@@ -62,9 +61,9 @@ const App = React.createClass({
         {()=>{
           return (
             <Layout {... this.props}>
-              <Grid fluid={true}>
-                <Row>
-                  <Col xs={12} sm={3} lg={2}>
+              <Grid fluid={true} className='fill-height'>
+                <Row className='fill-height'>
+                  <Col className='sidebar fill-height' xs={12} sm={3} lg={2}>
                     <Nav bsStyle='pills' stacked activeKey={1}>
                       {nav.map((item)=>{
                         const{
@@ -74,7 +73,7 @@ const App = React.createClass({
                       })}
                     </Nav>
                   </Col>
-                  <Col xs={12} sm={9} lg={10}>
+                  <Col xs={12} sm={9} smOffset={3} lg={10} lgOffset={2}>
                     <RouteHandler/>
                   </Col>
                 </Row>

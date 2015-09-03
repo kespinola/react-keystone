@@ -20,8 +20,13 @@ The development mode of the app leverages webpack react hot loading with browser
 - Start a local db instance by running `mongod`
 - Finally `npm run dev`
 
+##Collection Management
+Model your collections and access a super user admin using [Keystone](http://keystonejs.com). Visit the site for info on collection creation and data management. 
+
 ##Deploy
 Under development...
-- npm run start
+- `npm run start`
+
+##[Project Roadmap](https://trello.com/b/uslnWqQh)
 
 

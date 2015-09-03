@@ -9,6 +9,7 @@ var Post = new keystone.List('Post', {
 
 Post.add({
   title: { type: String, required: true },
+  createdAt: { type: Types.Date, default: Date.now, noedit: true, index: true },
   slug: { type: String, index: true },
   state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
   user: { type: Types.Relationship, ref: 'User', index: true },

@@ -1,47 +1,36 @@
 import React from 'react';
-import {State} from 'react-router';
-import _ from 'lodash';
-import {ButtonInput, Input} from 'react-bootstrap';
-import {Navigation} from 'react-router';
+import { Row, Col, Input } from 'react-bootstrap';
+import { State } from 'react-router';
+import { Navigation } from 'react-router';
+import Form from './_lib/form';
 
-const CreatePost = React.createClass({
-  
+const EditPost = React.createClass({
+
   mixins:[Navigation],
-  
-  getInitialState(){
-    return {
-      title:'',
-    }
-  },
+
   render(){
     const{
-      title,
-      } = this.state;
+      def,
+      } = this.props;
     return (
-      <form onSubmit={this._handleSubmit}>
-        <Input type='text' label='Title' value={title} onChange={this._handleChange}/>
-        <ButtonInput type='submit' value='Create Post'/>
-      </form>
+      <Row>
+        <Col xs={12} md={6} mdOffset={3}>
+          <Form def={def} onSubmit={this._handleSubmit}/>
+        </Col>
+      </Row>
     )
   },
 
-  _handleChange(e){
-    this.setState({title:e.target.value});
+  _handleSubmit(doc){
+    const{
+      def,
+      create,
+      } = this.props;
+    create({def, doc});
+    this.transitionTo('post.list');
   },
 
-  _handleSubmit(e){
-    e.preventDefault();
-    const{
-      title,
-      } = this.state;
-    if(_.isEmpty(title)){
-      alert('Title is required!');
-    }else{
-      this.props.create({resource:'posts', doc:{title}});
-      this.transitionTo('post.list');
-    }
-  },
 });
 
-export default CreatePost;
+export default EditPost;
 

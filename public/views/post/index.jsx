@@ -7,14 +7,15 @@ import {
   destroyResource, 
   updateResource,
   patchResource,
-  } from '../../actions/resource.js';
+  } from '../../actions/resource';
 
-function mapStateToProps(state){
-  return{
-    data: state.get('collections').get('posts').sort((a,b)=>{ return a.get('createdAt') < b.get('createdAt')}),
-    resource: state.get('resources').get('posts'),
-  }
-}
+import {
+  populatedResourceSelectorFactory,
+  } from '../../selectors/resource';
+
+import def from './definition';
+
+const postResourceSelector = populatedResourceSelectorFactory(def);  
 
 function mapDispatchToProps(dispatch){
   return {
@@ -31,10 +32,10 @@ const PostIndex = React.createClass({
   
   render(){
     const{
-      data,
+      collection,
       } = this.props;
-    const slug = this.getParams().slug;
-    return <RouteHandler {...this.props} slug={slug} data={slug ? data.get(slug) : data}/>
+    const _id = this.getParams()._id;
+    return <RouteHandler {... this.props} _id={_id} doc={_id ? collection.get(_id) : null}/>
   },
   
   componentDidMount(){
@@ -44,7 +45,7 @@ const PostIndex = React.createClass({
 });
 
 export default connect(
-  mapStateToProps,
+  postResourceSelector,
   mapDispatchToProps
 )(PostIndex);
 

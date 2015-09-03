@@ -1,31 +1,52 @@
 @import '../../node_modules/normalize-sass/normalize'
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap'
+@import 'react-widgets'
 
 $body-bg: rgb(66, 66, 66)
+$body-accent: #464646
 $text-color: #fff
 $sidebar-width: 256px
 $primary-font: Roboto, sans-serif
+$input-height-base: 35px
 
-body
-	background: $body-bg 
-	color: $text-color 
+.fill-height
+	height: 100%
+
+html, body
+	background: $body-bg
+	color: $text-color
 	font-family: $primary-font
 	overflow-x: hidden
-	ul 
+	height: 100%
+	ul
 		margin: 0
 		padding: 0
 
+.sidebar
+	background: $body-accent
+	height: auto
+	@media (min-width: 768px)
+		height: 100%
+		position: fixed
+		top: 0
+		left: 0
+
 .inline-list
 	li
-		list-style: none 
-		display: inline-block 
+		list-style: none
+		display: inline-block
 		margin: 0 20px 10px 0
 		&:last-child
 			margin: 0 0 10px 0
 form
+	.markup-box
+		@extend .form-control
+		height: 250px
+		overflow-y: auto
 	&.basic
-		input
-			display: block
-			background: transparent
-			border: $brand-primary
-			border-radius: 4px
+		input, select, textarea
+			@extend .form-control
+		button
+			&.submit
+				@extend .btn
+				@extend .btn-primary
