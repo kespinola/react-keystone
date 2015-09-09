@@ -3,6 +3,7 @@ import { Row, Col, Input } from 'react-bootstrap';
 import { State } from 'react-router';
 import { Navigation } from 'react-router';
 import Form from './_lib/form';
+import { Button } from 'react-bootstrap';
 
 const EditPost = React.createClass({
   
@@ -13,10 +14,15 @@ const EditPost = React.createClass({
       def,
       doc,
       } = this.props;
+    
+    if(!doc) return null;
+    
     return (
       <Row>
         <Col xs={12} md={6} mdOffset={3}>
           <Form {... this.props} def={def} doc={doc} onSubmit={this._handleSubmit} submitLabel={'Edit Post'}/>
+          <hr/>
+          {doc.has('_id') ? <a href={`/keystone/posts/${doc.get('_id')}`}>Update in Keystone</a> : null}
         </Col>
       </Row>
     )

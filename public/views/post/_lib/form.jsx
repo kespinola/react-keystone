@@ -8,12 +8,11 @@ import {
   Multiselect } from 'react-widgets';
 import { Navigation } from 'react-router';
 
-
 const PostForm = createClass({
   
   getInitialState(){  
     return {
-      doc:this.props.doc ? this.props.doc.toJS() : {},
+      doc:this.props.doc ? this.props.doc.toJS() : null,
     }
   },
 
@@ -33,6 +32,9 @@ const PostForm = createClass({
       submitLabel,
       } = this.props;
     const schema = def.get('schema');
+    
+    if(!doc) return null;
+    
     return (
       <Form
         noValidate
