@@ -52,16 +52,26 @@ export const populatedResourceSelectorFactory = def => {
       
       const lookup = [p0, p1, p2, p3, p4].filter( obj => obj );
       
+      lookup.forEach( (populate, i) => {
+        const {
+          def,
+          collection,
+          } = populate;
+        const key = def.get('name');
+        _.assign(resource, {[key]:collection});
+      });
+      
+
       let collection = resource.collection.map( doc => {
-        
+
         lookup.forEach( (populate, i) => {
           const key = keys[i];
           if(!doc.has(key)) return false;
           doc = doc.set(key, join(doc.get(key), populate.collection));
         });
-        
+
         return doc;
-        
+
       });
       
       return _.assign(resource, { collection });

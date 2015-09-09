@@ -16,7 +16,7 @@ const EditPost = React.createClass({
     return (
       <Row>
         <Col xs={12} md={6} mdOffset={3}>
-          <Form def={def} doc={doc} onSubmit={this._handleSubmit}/>
+          <Form {... this.props} def={def} doc={doc} onSubmit={this._handleSubmit} submitLabel={'Edit Post'}/>
         </Col>
       </Row>
     )

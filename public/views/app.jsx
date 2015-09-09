@@ -27,8 +27,12 @@ const store = configureStore(Map({
   }),
   resources: Map({
     posts,
-    topics: Map({}),
-    users: Map({}),
+    topics: Map({
+      name:'topics'
+    }),
+    users: Map({
+      name:'users'
+    }),
   }),
 }));
 

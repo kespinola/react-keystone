@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { createClass } from 'react';
 import WYSIWYG from '../../_lib/wysiwyg';
 import Datepicker from '../../_lib/datepicker';
 import Form from 'react-formal';
-import { DropdownList } from 'react-widgets';
+import Field from '../../_lib/field.jsx';
+import { 
+  DropdownList,
+  Multiselect } from 'react-widgets';
 import { Navigation } from 'react-router';
 
-const PostForm = React.createClass({
+
+const PostForm = createClass({
   
   getInitialState(){  
     return {
@@ -23,7 +27,10 @@ const PostForm = React.createClass({
       } = this.state;
     const{
       def,
+      users,
+      topics,
       onSubmit,
+      submitLabel,
       } = this.props;
     const schema = def.get('schema');
     return (
@@ -37,11 +44,13 @@ const PostForm = React.createClass({
         onSubmit={onSubmit}
         >
         <Form.Summary />
-        <Form.Field name='title'/>
-        <Form.Field name='state' type={DropdownList} data={['draft','published','archived']} />
-        <Form.Field name='publishedDate' type={Datepicker}/>
-        <Form.Field name='text' type={WYSIWYG}/>
-        <Form.Button type='submit' className='submit'>Create Post</Form.Button>
+        <Field name='title'/>
+        <Field name='user' type={DropdownList} data={users.toArray().map( map => map.toJS())} textField='email' valueField='_id' />
+        <Field name='state' type={DropdownList} data={['draft','published','archived']} />
+        <Field name='publishedDate' type={Datepicker}/>
+        <Field name='text' type={WYSIWYG}/>
+        <Field name='topics'  type={Multiselect} data={topics.toArray().map( map => map .toJS() )} textField='name' valueField='_id'/>
+        <Form.Button type='submit' className='submit'>{submitLabel}</Form.Button>
       </Form>
     )
   },
