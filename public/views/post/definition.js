@@ -1,7 +1,7 @@
 import { Map } from 'immutable';
 import yup from 'yup';
 
-const PostDefinition = Map({
+const Definition = Map({
   name:'posts',
   keys: Map({
     singular:'post',
@@ -21,4 +21,4 @@ const PostDefinition = Map({
   })
 });
 
-export default PostDefinition;
+export default Definition;

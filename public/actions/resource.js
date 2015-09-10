@@ -12,11 +12,15 @@ export const CREATE_RESOURCE = 'CREATE_RESOURCE';
 export const DESTROY_RESOURCE = 'DESTROY_RESOURCE';
 export const PATCH_RESOURCE = 'PATCH_RESOURCE';
 
-function deserializeDoc(doc = {}, populate = []){
+function deserializeDoc(doc = {}, populate = {}){
+  
+  const keys = populate.keySeq().toArray();
+  
+  if(_.isEmpty(keys)) return doc.toJS();
   
   doc = fromJS(doc);
   
-  populate.forEach( key => {
+  keys.forEach( key => {
     const value = doc.get(key);
     if(!doc.has(key)) return false;
     doc = doc.set(key, List.isList(value) ? value.map( map => map.get('_id') ) : value.get('_id'))
@@ -38,7 +42,7 @@ export const createResource = createAction(CREATE_RESOURCE, req => {
   const{
     def,
     } = req;
-  return axios.post(`${API_BASE}${def.get('name')}`, req.doc);
+  return axios.post(`${API_BASE}${def.get('name')}`, deserializeDoc(req.doc, def.get('populate')));
 }, req => (req));
 
 export const destroyResource = createAction(DESTROY_RESOURCE, req => {
@@ -49,18 +53,20 @@ export const patchResource = createAction(PATCH_RESOURCE, req => {
   const{
     def,
     } = req;
-  return axios.patch(`${API_BASE}${def.get('name')}/${req.doc._id}`, deserializeDoc(req.doc, def.get('populate').keySeq().toArray()));
+  return axios.patch(`${API_BASE}${def.get('name')}/${req.doc._id}`, deserializeDoc(req.doc, def.get('populate')));
 }, req => (req));
 
 export function findResource(req){
+  const {
+    def,
+    } = req;
+  const resource = def.get('name');
+  
   return (dispatch, getState) => {
     const state = getState();
     const query = req.query ? req.query : {};
-    const {
-      resource
-      } = req;
     const collection = state.get('collections').get(resource).toArray().map(obj => obj.toJS());
-    const populate = state.get('resources').get(resource).get('populate').toArray();
+    const populate = state.get('resources').get(resource).get('populate').valueSeq().toArray();
     if(!_.filter(collection, query).length) dispatch(fetchResources(_.assign(req, {resources:populate.concat(resource)})));
   }
 }

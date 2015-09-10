@@ -15,7 +15,7 @@ import {
 
 import def from './definition';
 
-const postResourceSelector = populatedResourceSelectorFactory(def);  
+const populatedResourceSelector = populatedResourceSelectorFactory(def);  
 
 function mapDispatchToProps(dispatch){
   return {
@@ -42,13 +42,13 @@ const Index = React.createClass({
     const {
       def,
       } = this.props;
-    this.props.find({def, query:{}})
+    this.props.find({def, query:{}});
   }
   
 });
 
 export default connect(
-  postResourceSelector,
+  populatedResourceSelector,
   mapDispatchToProps
 )(Index);
 

@@ -15,7 +15,7 @@ const Create = React.createClass({
     return (
       <Row>
         <Col xs={12} md={6} mdOffset={3}>
-          <Form {... this.props} def={def} onSubmit={this._handleSubmit} submitLabel={'Create Post'}/>
+          <Form {... this.props} def={def} onSubmit={this._handleSubmit} submitLabel={'Create Event'}/>
         </Col>
       </Row>
     )
@@ -27,7 +27,7 @@ const Create = React.createClass({
       create,
       } = this.props;
     create({def, doc});
-    this.transitionTo('post.list');
+    this.transitionTo('event.list');
   },
 
 });

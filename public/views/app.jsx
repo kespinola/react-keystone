@@ -18,15 +18,18 @@ Form.addInputTypes(
 
 
 import posts from './post/definition';
+import events from './event/definition';
 
 const store = configureStore(Map({
   collections: Map({
     posts: Map({}),
+    events:Map({}),
     topics: Map({}),
     users: Map({}),
   }),
   resources: Map({
     posts,
+    events,
     topics: Map({
       name:'topics'
     }),
@@ -44,7 +47,8 @@ const App = React.createClass({
 		return {
 			nav: [
 				{route:'home', text: 'Home'},
-				{route: 'post.list', text: 'Blog'}
+				{route: 'post.list', text: 'Blog'},
+        {route:'event.list', text:'Events'}
 			]
 		}
 	},
